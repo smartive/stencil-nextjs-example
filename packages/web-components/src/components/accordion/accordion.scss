@@ -1,0 +1,128 @@
+:host .accordion {
+  box-sizing: border-box;
+  border-radius: 5px;
+  overflow: hidden;
+  border-width: 1px;
+
+  &__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font: 14px Arial, sans-serif;
+    font-weight: 700;
+    word-break: break-all;
+
+    &:hover {
+      transition: 0.3s;
+    }
+  }
+
+  &__paragraph {
+    margin: 0;
+    padding: 0 15px 10px 15px;
+    word-break: break-all;
+    max-height: 0;
+  }
+
+  &__icon {
+    align-self: flex-start;
+    transition: 0.5s;
+  }
+}
+
+:host([variant='white']) .accordion {
+  background-color: #ffffff;
+  border-color: #ccc;
+  font: 16px Arial, sans-serif;
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+    color: #333;
+  }
+
+  &__summary {
+    color: #333;
+
+    &:hover {
+      color: #555;
+      background-color: #f5f5f5;
+      border-color: #666;
+    }
+  }
+}
+
+:host([variant='white'][open]) .accordion {
+  background-color: #ffffff;
+  color: #333;
+  font: 16px Arial, sans-serif;
+
+  &__summary {
+    color: #333;
+
+    &:hover {
+      color: #555;
+      background-color: #f5f5f5;
+    }
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+    color: #333;
+    transform: rotate(180deg);
+  }
+}
+
+:host([variant='grey']) .accordion {
+  background-color: #ccc;
+  border-color: #999;
+  font: 16px Arial, sans-serif;
+
+  &__summary {
+    color: #333;
+
+    &:hover {
+      color: #555;
+      background-color: #ddd;
+      border-color: #666;
+    }
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+    color: #333;
+  }
+}
+
+:host([variant='grey'][open]) .accordion {
+  background-color: #ccc;
+  font: 16px Arial, sans-serif;
+
+  &__summary {
+    color: #333;
+
+    &:hover {
+      color: #555;
+      background-color: #ddd;
+    }
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+    color: #333;
+    transform: rotate(180deg);
+  }
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+:host([open]) .accordion__paragraph {
+  max-height: 100vh;
+  transition: 0.5s;
+}

@@ -1,0 +1,68 @@
+{
+  "name": "abc-web-components-react-wrapper",
+  "version": "0.0.0",
+  "author": "smartive AG <hello@smartive.ch>",
+  "license": "ISC",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/smartive/stencil-nextjs-example/issues"
+  },
+  "homepage": "https://github.com/smartive/stencil-nextjs-example#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/smartive/stencil-nextjs-example.git"
+  },
+  "engines": {
+    "node": "^20",
+    "npm": "^10"
+  },
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": "./dist/esm/index.js",
+    "./server": "./dist/esm/lib/server.js",
+    "./client": "./dist/esm/lib/client/index.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "dist",
+    "patches"
+  ],
+  "scripts": {
+    "prebuild": "del-cli --force ./dist/ && copyfiles -f ../web-components/dist/components/*.js ./dist/components && make-dir ./dist/esm",
+    "build": "ESBK_DISABLE_CACHE=1 node --no-warnings --loader @esbuild-kit/esm-loader ./scripts/build.ts",
+    "postbuild": "tsc -p .",
+    "@comment_postinstall": "Behavior of the script below: if '.gitignore' exists in current directory, do nothing -- else, package is installed as dependencies so return error-code 1, causing patch-package to run.",
+    "postinstall": "node -e \"try { require('fs').accessSync('./.gitignore', require('fs').constants.F_OK); } catch{ process.exit(1); }\" || (cp -R patches/ ../../../patches && cd ../../../ && npx --yes patch-package && rm -rf patches)"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "abc-web-components": "^0.0.0",
+    "@stencil/core": "4.4.1",
+    "canvas": "^2.11.2",
+    "linkedom": "^0.15.6",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@esbuild-kit/esm-loader": "^2.6.5",
+    "copyfiles": "^2.4.1",
+    "del-cli": "^5.1.0",
+    "make-dir-cli": "^3.1.0",
+    "typescript": "^5.2.2"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "abc-app",
+  "version": "0.0.0",
+  "author": "smartive AG <hello@smartive.ch>",
+  "license": "ISC",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/smartive/stencil-nextjs-example/issues"
+  },
+  "homepage": "https://github.com/smartive/stencil-nextjs-example#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/smartive/stencil-nextjs-example.git"
+  },
+  "engines": {
+    "node": "^20",
+    "npm": "^10"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "abc-web-components-react-wrapper": "^0.0.0",
+    "next": "13.5.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@smartive/eslint-config": "3.3.0",
+    "@smartive/prettier-config": "3.1.2",
+    "@types/node": "20.8.5",
+    "@types/react": "18.2.24",
+    "@types/react-dom": "18.2.8",
+    "eslint": "8.50.0",
+    "eslint-config-next": "13.5.4",
+    "eslint-config-prettier": "9.0.0",
+    "prettier": "3.0.3",
+    "typescript": "5.2.2"
+  },
+  "nx": {
+    "targets": {
+      "dev": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "start": {
+        "dependsOn": [
+          "build"
+        ]
+      }
+    }
+  }
+}

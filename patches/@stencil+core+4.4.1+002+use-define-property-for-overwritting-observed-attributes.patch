@@ -1,0 +1,39 @@
+diff --git a/node_modules/@stencil/core/internal/client/index.js b/node_modules/@stencil/core/internal/client/index.js
+index 7b647c2..d107ed9 100644
+--- a/node_modules/@stencil/core/internal/client/index.js
++++ b/node_modules/@stencil/core/internal/client/index.js
+@@ -2428,19 +2428,21 @@ const proxyComponent = (Cstr, cmpMeta, flags) => {
+             // on a component as well as any Stencil-specific "members" (`@Prop()`s and `@State()`s).
+             // As such, there is no way to guarantee type-safety here that a user hasn't entered
+             // an invalid attribute.
+-            Cstr.observedAttributes = Array.from(new Set([
+-                ...Object.keys((_a = cmpMeta.$watchers$) !== null && _a !== void 0 ? _a : {}),
+-                ...members
+-                    .filter(([_, m]) => m[0] & 15 /* MEMBER_FLAGS.HasAttribute */)
+-                    .map(([propName, m]) => {
+-                    const attrName = m[1] || propName;
+-                    attrNameToPropName.set(attrName, propName);
+-                    if (BUILD.reflect && m[0] & 512 /* MEMBER_FLAGS.ReflectAttr */) {
+-                        cmpMeta.$attrsToReflect$.push([propName, attrName]);
+-                    }
+-                    return attrName;
+-                }),
+-            ]));
++            Object.defineProperty(Cstr, "observedAttributes", {
++                get: function () { return Array.from(new Set([
++                    ...Object.keys((_a = cmpMeta.$watchers$) !== null && _a !== void 0 ? _a : {}),
++                    ...members
++                        .filter(([_, m]) => m[0] & 15 /* MEMBER_FLAGS.HasAttribute */)
++                        .map(([propName, m]) => {
++                        const attrName = m[1] || propName;
++                        attrNameToPropName.set(attrName, propName);
++                        if (BUILD.reflect && m[0] & 512 /* MEMBER_FLAGS.ReflectAttr */) {
++                            cmpMeta.$attrsToReflect$.push([propName, attrName]);
++                        }
++                        return attrName;
++                    }),
++                ])) },
++            });
+         }
+     }
+     return Cstr;

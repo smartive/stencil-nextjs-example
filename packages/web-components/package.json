@@ -1,0 +1,55 @@
+{
+  "name": "abc-web-components",
+  "version": "0.0.0",
+  "author": "smartive AG <hello@smartive.ch>",
+  "license": "ISC",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/smartive/stencil-nextjs-example/issues"
+  },
+  "homepage": "https://github.com/smartive/stencil-nextjs-example#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/smartive/stencil-nextjs-example.git"
+  },
+  "engines": {
+    "node": "^20",
+    "npm": "^10"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/web-components/web-components.esm.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@stencil/core": "^4.4.1"
+  },
+  "devDependencies": {
+    "@smartive/eslint-config": "3.3.0",
+    "@smartive/prettier-config": "3.1.2",
+    "@stencil-community/eslint-plugin": "smartive/stencil-eslint#feat/typescript-v5-dist",
+    "@stencil/sass": "3.0.6",
+    "@types/node": "20.8.5",
+    "http-server": "14.1.1",
+    "stencil-inline-svg": "1.1.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
+  }
+}

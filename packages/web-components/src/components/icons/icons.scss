@@ -1,0 +1,36 @@
+:host {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:host([size='xs']) svg {
+    height: 16px;
+    width: 16px;
+}
+
+:host([size='sm']) svg {
+    height: 24px;
+    width: 24px;
+}
+
+:host([size='md']) svg {
+    height: 32px;
+    width: 32px;
+}
+
+:host([size='lg']) svg {
+    height: 40px;
+    width: 40px;
+}
+
+:host([size='xl']) svg {
+    height: 48px;
+    width: 48px;
+}
+
+:host([size='xxl']) svg {
+    height: 56px;
+    width: 56px;
+}

@@ -1,0 +1,47 @@
+{
+  "name": "stencil-nextjs-example",
+  "version": "0.0.0",
+  "description": "This project shows how we got Stencil Web Components working inside the Next.js app directory.",
+  "author": "smartive AG <hello@smartive.ch>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smartive/stencil-nextjs-example/issues"
+  },
+  "homepage": "https://github.com/smartive/stencil-nextjs-example#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/smartive/stencil-nextjs-example.git"
+  },
+  "keywords": [
+    "nextjs",
+    "next",
+    "stencil",
+    "stenciljs",
+    "app",
+    "directory",
+    "web",
+    "components"
+  ],
+  "scripts": {
+    "web-components:build": "lerna run build --scope=abc-web-components",
+    "web-components-react-wrapper:build": "lerna run build --scope=abc-web-components-react-wrapper",
+    "app:dev": "lerna run dev --skip-nx-cache --scope=abc-app",
+    "app:start": "lerna run start --skip-nx-cache --scope=abc-app",
+    "app:clean": "del-cli --force ./packages/app/.next",
+    "preapp:patch:stenciljs": "npm run app:clean",
+    "app:patch:stenciljs": "npx --yes patch-package",
+    "preapp:unpatch:stenciljs": "npm run app:clean",
+    "app:unpatch:stenciljs": "npx --yes -p patch-package -c 'patch-package --reverse'"
+  },
+  "engines": {
+    "node": "^20",
+    "npm": "^10"
+  },
+  "devDependencies": {
+    "del-cli": "^5.1.0",
+    "lerna": "7.3.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

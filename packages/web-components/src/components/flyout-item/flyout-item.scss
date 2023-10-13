@@ -1,0 +1,32 @@
+:host .flyout-item {
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #fff;
+  color: #333;
+  border-width: 1px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-align: left;
+  font: 16px Arial, sans-serif;
+
+  &:hover,
+  &:focus-within {
+    background-color: #f0f0f0;
+    color: #555;
+    border-color: #007bff;
+  }
+}
+
+:host([selected]) .flyout-item {
+  border-style: solid;
+  border-width: 2px 2px 2px 2px;
+  border-color: #007bff;
+  background-color: #007bff;
+  color: #fff;
+}

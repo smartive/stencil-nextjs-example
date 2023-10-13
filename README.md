@@ -18,11 +18,11 @@ _Disclaimer: The Web Components are copied from a client project and all styles 
 
    Launching the app will fail with `TypeError: this.attachShadow is not a function` which is caused because `window` is undefined server-side, which is excepted, that's why we shimed `globalThis` with all needed functions. But Stencil.js does not fallback to globalThis instead it uses an empty object `{}`. So let's patch ([#4917](https://github.com/ionic-team/stencil/pull/4917)) this by executing the following command
 
-   `git apply --ignore-whitespace patches/@stencil+core+4.4.1+001+4917-use-global-this-as-window-fallback.patch`
+   `git apply --ignore-whitespace patches/@stencil+core+4.4.1+001+use-global-this-as-window-fallback.patch`
 
    Now run `npm run app:clean` and restart the app with `npm run app:start`. This problem is gone. Yay... But now we get a `TypeError: Cannot set property observedAttributes...`, which is probably caused of the implementation of `linkedom` which we use as a shim for `window` server-side. So we patch ([#4915](https://github.com/ionic-team/stencil/pull/4915)) this by running
 
-   `git apply --ignore-whitespace patches/@stencil+core+4.4.1+002+4915-use-define-property-for-overwritting-observed-attributes.patch`
+   `git apply --ignore-whitespace patches/@stencil+core+4.4.1+002+use-define-property-for-overwritting-observed-attributes.patch`
 
    Again run `npm run app:clean` and `npm run app:start`. Voila, everything can be built and started. 🙌
 

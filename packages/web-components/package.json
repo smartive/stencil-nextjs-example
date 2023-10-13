@@ -13,8 +13,8 @@
     "url": "git+ssh://git@github.com/smartive/stencil-nextjs-example.git"
   },
   "engines": {
-    "node": "^20",
-    "npm": "^10"
+    "node": "^18",
+    "npm": "^9"
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

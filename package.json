@@ -25,6 +25,7 @@
   "scripts": {
     "web-components:build": "lerna run build --scope=abc-web-components",
     "web-components-react-wrapper:build": "lerna run build --scope=abc-web-components-react-wrapper",
+    "app:build": "lerna run build --skip-nx-cache --scope=abc-app",
     "app:dev": "lerna run dev --skip-nx-cache --scope=abc-app",
     "app:start": "lerna run start --skip-nx-cache --scope=abc-app",
     "app:clean": "del-cli --force ./packages/app/.next",

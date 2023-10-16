@@ -32,9 +32,10 @@
     "patches"
   ],
   "scripts": {
-    "prebuild": "del-cli --force ./dist/ && copyfiles -f ../web-components/dist/components/*.js ./dist/components && make-dir ./dist/esm",
+    "prebuild": "del-cli --force ./dist && copyfiles -f ../web-components/dist/components/*.js ./dist/components && make-dir ./dist/esm",
     "build": "ESBK_DISABLE_CACHE=1 node --no-warnings --loader @esbuild-kit/esm-loader ./scripts/build.ts",
     "postbuild": "tsc -p .",
+    "lint": "eslint .",
     "@comment_postinstall": "Behavior of the script below: if '.gitignore' exists in current directory, do nothing -- else, package is installed as dependencies so return error-code 1, causing patch-package to run.",
     "postinstall": "node -e \"try { require('fs').accessSync('./.gitignore', require('fs').constants.F_OK); } catch{ process.exit(1); }\" || (cp -R patches/ ../../../patches && cd ../../../ && npx --yes patch-package && rm -rf patches)"
   },
@@ -51,9 +52,15 @@
   },
   "devDependencies": {
     "@esbuild-kit/esm-loader": "^2.6.5",
+    "@smartive/eslint-config": "3.3.0",
+    "@smartive/prettier-config": "3.1.2",
+    "@types/node": "18.18.5",
     "copyfiles": "^2.4.1",
+    "eslint": "8.50.0",
+    "eslint-config-prettier": "9.0.0",
     "del-cli": "^5.1.0",
     "make-dir-cli": "^3.1.0",
+    "prettier": "3.0.3",
     "typescript": "^5.2.2"
   },
   "nx": {

@@ -85,6 +85,7 @@ const renderCustomElements = (shadowRoot: ShadowRoot) => {
 
 const reservedReactProperties = new Set(['children', 'localName', 'ref']);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createElement = (type: string, props: Record<string, any>) => {
   const element = document.createElement(type);
 

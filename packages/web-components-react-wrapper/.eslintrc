@@ -2,5 +2,7 @@
   "extends": [
     "prettier",
     "@smartive/eslint-config"
-  ]
+  ],
+  "parser": "@typescript-eslint/parser",
+  "root": true
 }

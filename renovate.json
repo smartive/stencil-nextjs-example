@@ -1,6 +1,32 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>smartive/renovate-config"
-  ]
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "packagePatterns": ["react","react-dom","@types/react","@types/react-dom"],
+      "groupName": "React"
+    },
+    {
+      "packagePatterns": ["^@types[/]"],
+      "groupName": "TypeScript typings"
+    },
+    {
+      "packagePatterns": ["^@migros/mdx-*"],
+      "groupName": "MDX"
+    },
+    {
+      "packagePatterns": ["^eslint*", "prettier", "^typescript-eslint*", "@smartive/prettier-config"],
+      "groupName": "Linting"
+    },
+    {
+      "updateTypes": ["major"],
+      "automerge": false,
+      "gitLabAutomerge": false,
+      "labels": ["dependencies", "dependencies-major"]
+    }
+  ],
+  "prConcurrentLimit": 12,
+  "rangeStrategy": "replace",
+  "gitLabAutomerge": true,
+  "automerge": true
 }

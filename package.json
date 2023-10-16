@@ -23,6 +23,7 @@
     "components"
   ],
   "scripts": {
+    "lint": "lerna run lint",
     "web-components:build": "lerna run build --scope=abc-web-components",
     "web-components-react-wrapper:build": "lerna run build --scope=abc-web-components-react-wrapper",
     "app:build": "lerna run build --skip-nx-cache --scope=abc-app",

@@ -40,7 +40,7 @@
     "@stencil-community/eslint-plugin": "smartive/stencil-eslint#feat/typescript-v5-dist",
     "@stencil/sass": "3.0.6",
     "@types/node": "18.18.5",
-    "eslint": "8.50.0",
+    "eslint": "8.51.0",
     "eslint-config-prettier": "9.0.0",
     "prettier": "3.0.3",
     "stencil-inline-svg": "1.1.0"

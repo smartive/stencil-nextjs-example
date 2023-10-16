@@ -2,7 +2,7 @@
 
 This project shows how we got Stencil.js Web Components working inside the Next.js app directory.
 
-Big thanks goes out to [Wesley Luyten](https://github.com/luwes) who created [WeSC](https://github.com/luwes/wesc) which served as base of `./packages/web-components-react-wrapper`. 🙏
+Big thanks goes out to [Wesley Luyten](https://github.com/luwes) who created [WeSC](https://github.com/luwes/wesc) which served as base of `./packages/web-components-react-wrapper`. 🙏 Also we like to thank [Mux](https://github.com/muxinc) for there Web Components React [build script](https://github.com/muxinc/media-chrome/blob/main/scripts/react/build.js) which helped us to create our Stencil React Wrapper.
 
 _Disclaimer: The Web Components are copied from a client project and all styles are replaced with randomly generated values from ChatGPT. That's why they look so crappy. 🙊_
 
@@ -16,7 +16,7 @@ _Disclaimer: The Web Components are copied from a client project and all styles 
 
    To get a reproduction of the current behavior, skip this step and proceed to the next one.
 
-   Launching the app will fail with `TypeError: this.attachShadow is not a function` which is caused because `window` is undefined server-side, which is excepted, that's why we shimed `globalThis` with all needed functions. But Stencil.js does not fallback to globalThis instead it uses an empty object `{}`. So let's patch ([#4917](https://github.com/ionic-team/stencil/pull/4917)) this by executing the following command
+   Launching the app will fail with `TypeError: this.attachShadow is not a function` which is caused because `window` is undefined server-side, which is excepted, that's why we shimed `globalThis` with all needed functions. But Stencil.js does not fallback to `globalThis` instead it uses an empty object `{}`. So let's patch ([#4917](https://github.com/ionic-team/stencil/pull/4917)) this by executing the following command
 
    `git apply --ignore-whitespace patches/@stencil+core+4.4.1+001+use-global-this-as-window-fallback.patch`
 

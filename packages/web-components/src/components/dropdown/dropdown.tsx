@@ -85,6 +85,7 @@ export class Dropdown {
       return false;
     }
     this.selectedItem = item;
+
     return true;
   }
 
@@ -105,6 +106,7 @@ export class Dropdown {
 
   render() {
     const itemLabel = this.getItems(this.selectedItem)?.label;
+
     return (
       <Host
         onItemClick={({ detail: { item } }) => {
@@ -115,7 +117,7 @@ export class Dropdown {
           disabled={this.disabled}
           required={this.required}
           label={this.label}
-          placeholder={!itemLabel}
+          placeholder={typeof itemLabel === 'string'}
           open={this.open}
           text={itemLabel || this.text}
         >

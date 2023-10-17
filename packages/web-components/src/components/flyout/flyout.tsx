@@ -29,7 +29,7 @@ export class Flyout {
   flyoutChange: EventEmitter<HTMLAbcFlyoutItemElement['item']>;
 
   @Listen('keydown', { capture: true, target: 'window' })
-  handleKeyDown(e: KeyboardEvent) {
+  async handleKeyDown(e: KeyboardEvent) {
     if (!(e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
       return;
     }
@@ -47,7 +47,7 @@ export class Flyout {
       currentIndex = (currentIndex - 1 + items.length) % items.length;
     }
 
-    items[currentIndex].focusItem();
+    await items[currentIndex].focusItem();
     e.preventDefault();
   }
 
@@ -56,6 +56,7 @@ export class Flyout {
       return false;
     }
     this.selectedItem = item;
+
     return true;
   }
 

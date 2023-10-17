@@ -35,7 +35,7 @@
     "@stencil/core": "^4.4.1"
   },
   "devDependencies": {
-    "@smartive/eslint-config": "3.3.0",
+    "@smartive/eslint-config": "4.0.0",
     "@smartive/prettier-config": "3.1.2",
     "@stencil-community/eslint-plugin": "smartive/stencil-eslint#feat/typescript-v5-dist",
     "@stencil/sass": "3.0.6",

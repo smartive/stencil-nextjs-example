@@ -8,7 +8,7 @@ export const Dropdown: FC = () => {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const { current } = ref;
-    const onDropdownChange = (event: Event) => console.log((event as CustomEvent<string>)['detail']);
+    const onDropdownChange = (event: Event) => console.info((event as CustomEvent<string>)['detail']);
     current?.addEventListener('dropdownChange', onDropdownChange);
 
     return () => current?.removeEventListener('dropdownChange', onDropdownChange);

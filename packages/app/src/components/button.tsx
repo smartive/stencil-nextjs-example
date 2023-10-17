@@ -8,7 +8,7 @@ export const Button: FC = () => {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const { current } = ref;
-    const onClick = (event: Event) => console.log((event as CustomEvent<string>)['detail']);
+    const onClick = (event: Event) => console.info((event as CustomEvent<string>)['detail']);
     current?.addEventListener('click', onClick);
 
     return () => current?.removeEventListener('click', onClick);

@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@esbuild-kit/esm-loader": "^2.6.5",
-    "@smartive/eslint-config": "4.0.0",
+    "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
     "@types/node": "18.18.5",
     "copyfiles": "^2.4.1",

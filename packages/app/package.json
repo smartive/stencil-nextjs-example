@@ -30,7 +30,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@smartive/eslint-config": "4.0.0",
+    "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
     "@types/node": "18.18.5",
     "@types/react": "18.2.28",

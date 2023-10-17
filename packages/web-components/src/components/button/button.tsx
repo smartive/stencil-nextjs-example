@@ -47,6 +47,7 @@ export class Button {
         </button>
       );
     }
+
     return (
       <a
         part="button"

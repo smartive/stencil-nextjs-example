@@ -8,7 +8,7 @@ export const Accordion: FC = () => {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const { current } = ref;
-    const onAccordionChange = (event: Event) => console.log((event as CustomEvent<string>)['detail']);
+    const onAccordionChange = (event: Event) => console.info((event as CustomEvent<string>)['detail']);
     current?.addEventListener('accordionChange', onAccordionChange);
 
     return () => current?.removeEventListener('accordionChange', onAccordionChange);

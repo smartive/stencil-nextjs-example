@@ -160,6 +160,7 @@ const attributesToProps = (attributes: NamedNodeMap) =>
 const parseStyle = (style: string) =>
   style.split(';').reduce((styles, property) => {
     const [name, value] = property.split(':');
+
     return { ...styles, [name.trim()]: value.trim() };
   }, {});
 

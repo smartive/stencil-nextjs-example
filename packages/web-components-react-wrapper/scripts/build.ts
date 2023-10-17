@@ -16,6 +16,7 @@ const COMPONENTS_DIR = join(WEB_COMPONENTS_DIST_DIR, 'components');
 const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
   if (!entryPoints?.length) {
     console.error('no entrypoints! bailing');
+
     return;
   }
 
@@ -76,10 +77,14 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
 };
 
 patchPackages();
-await createReactWrapperModules({
+createReactWrapperModules({
   entryPoints: readdirSync(COMPONENTS_DIR)
     .filter((file) => file.startsWith('abc') && file.endsWith('.js'))
     .map((file) => join(COMPONENTS_DIR, file)),
   distRoot: join(DIST_DIR),
-});
-patchPackages(true);
+})
+  .then(() => patchPackages(true))
+  .catch((err) => {
+    console.error('unexpected error generating module!', err);
+    exit(1);
+  });

@@ -4,6 +4,7 @@ const isHTMLAbcAccordionItemElement = (element: string | HTMLAbcAccordionElement
   if (typeof element === 'object' && typeof element.item === 'string') {
     return true;
   }
+
   return false;
 };
 
@@ -26,7 +27,7 @@ export class AccordionContainer {
   onAccordionChange() {
     this.accordionChange.emit(this.selectedAccordion);
 
-    if (this.selectedAccordion) {
+    if (typeof this.selectedAccordion === 'string') {
       const activeAccordion = this.getItems(this.selectedAccordion);
       this.accordions.forEach((accordion) => {
         if (activeAccordion?.item !== accordion.item) {
@@ -49,6 +50,7 @@ export class AccordionContainer {
       return false;
     }
     this.selectedAccordion = item;
+
     return true;
   }
 

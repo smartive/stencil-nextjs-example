@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Next.js ABC Web Components App',
@@ -18,7 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           boxSizing: 'border-box',
         }}
       >
+        <noscript>Please enable JavaScript to view this website. Especially if you use Firefox.</noscript>
         {children}
+        <Script src="./scripts/polyfills/template-shadowroot.js" strategy="beforeInteractive" />
       </body>
     </html>
   );

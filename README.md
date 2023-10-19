@@ -16,7 +16,7 @@ _Disclaimer: The Web Components are copied from a client project and all styles 
 
    To get a reproduction of the current behavior, skip this step and proceed to the next one.
 
-   Launching the app will fail with `TypeError: this.attachShadow is not a function` which is caused because `window` is undefined server-side, which is excepted, that's why we shimed `globalThis` with all needed functions. But Stencil.js does not fallback to `globalThis` instead it uses an empty object `{}`. So let's patch ([#4917](https://github.com/ionic-team/stencil/pull/4917)) this by executing the following command
+   Launching the app will fail with `TypeError: this.attachShadow is not a function` which is caused because `window` is undefined server-side, which is expected, that's why we shimed `globalThis` with all needed functions. But Stencil.js does not fallback to `globalThis` instead it uses an empty object `{}`. So let's patch ([#4917](https://github.com/ionic-team/stencil/pull/4917)) this by executing the following command
 
    `git apply --ignore-whitespace patches/@stencil+core+4.4.1+001+use-global-this-as-window-fallback.patch`
 

@@ -20,11 +20,7 @@ _Disclaimer: The Web Components are copied from a client project and all styles 
 
    `git apply --ignore-whitespace patches/@stencil+core+4.4.1+001+use-global-this-as-window-fallback.patch`
 
-   Now run `npm run app:clean` and restart the app with `npm run app:start`. This problem is gone. Yay... But now we get a `TypeError: Cannot set property observedAttributes...`, which is probably caused of the implementation of `linkedom` which we use as a shim for `window` server-side. So we patch ([#4915](https://github.com/ionic-team/stencil/pull/4915)) this by running
-
-   `git apply --ignore-whitespace patches/@stencil+core+4.4.1+002+use-define-property-for-overwritting-observed-attributes.patch`
-
-   Again run `npm run app:clean` and `npm run app:start`. Voila, everything can be built and started. 🙌
+   Now run `npm run app:clean` and `npm run app:start` again. Voila, everything can be built and started. 🙌
 
 1. Now run either:
 

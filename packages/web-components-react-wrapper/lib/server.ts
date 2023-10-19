@@ -20,10 +20,21 @@ export function shim() {
     CustomEvent,
     DocumentFragment,
     DOMParser,
-    HTMLElement,
+    HTMLElement: LinkedomHTMLElement,
     HTMLTemplateElement,
     MutationObserver,
   } = parseHTML('...');
+
+  class HTMLElement extends LinkedomHTMLElement {
+    private static _observedAttributes: string[] = [];
+    static get observedAttributes() {
+      return HTMLElement._observedAttributes;
+    }
+
+    static set observedAttributes(value) {
+      HTMLElement._observedAttributes = value;
+    }
+  }
 
   class Storage {
     key() {}

@@ -55,7 +55,7 @@ const toTypeDeclaration = (elementName) =>
     elementName,
   )}> & { slot: string }>> & React.RefAttributes<HTMLElement | undefined>>;`;
 
-export const toTypesFile = (types, enums) => `import type { JSX } from 'abc-web-components';
+export const toTypesFile = (types, enums) => `import type { JSX, ${enums.join(', ')} } from 'abc-web-components';
 import type React from 'react';
 
 type IsEnum<T> = T extends ${enums.join(' | ')} ? true : false;

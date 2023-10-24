@@ -36,7 +36,7 @@
     "app:unpatch:stenciljs": "npx --yes -p patch-package -c 'patch-package --reverse'"
   },
   "engines": {
-    "node": "^18",
+    "node": "^20.0.0",
     "npm": "^9"
   },
   "devDependencies": {

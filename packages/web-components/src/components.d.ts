@@ -87,13 +87,35 @@ export interface AbcFlyoutItemCustomEvent<T> extends CustomEvent<T> {
     target: HTMLAbcFlyoutItemElement;
 }
 declare global {
+    interface HTMLAbcAccordionElementEventMap {
+        "accordionClick": { open: boolean; item?: string };
+    }
     interface HTMLAbcAccordionElement extends Components.AbcAccordion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcAccordionElementEventMap>(type: K, listener: (this: HTMLAbcAccordionElement, ev: AbcAccordionCustomEvent<HTMLAbcAccordionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcAccordionElementEventMap>(type: K, listener: (this: HTMLAbcAccordionElement, ev: AbcAccordionCustomEvent<HTMLAbcAccordionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLAbcAccordionElement: {
         prototype: HTMLAbcAccordionElement;
         new (): HTMLAbcAccordionElement;
     };
+    interface HTMLAbcAccordionGroupElementEventMap {
+        "accordionChange": HTMLAbcAccordionElement['item'];
+    }
     interface HTMLAbcAccordionGroupElement extends Components.AbcAccordionGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcAccordionGroupElementEventMap>(type: K, listener: (this: HTMLAbcAccordionGroupElement, ev: AbcAccordionGroupCustomEvent<HTMLAbcAccordionGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcAccordionGroupElementEventMap>(type: K, listener: (this: HTMLAbcAccordionGroupElement, ev: AbcAccordionGroupCustomEvent<HTMLAbcAccordionGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLAbcAccordionGroupElement: {
         prototype: HTMLAbcAccordionGroupElement;
@@ -105,25 +127,71 @@ declare global {
         prototype: HTMLAbcButtonElement;
         new (): HTMLAbcButtonElement;
     };
+    interface HTMLAbcDropdownElementEventMap {
+        "dropdownChange": HTMLAbcFlyoutItemElement['item'];
+    }
     interface HTMLAbcDropdownElement extends Components.AbcDropdown, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcDropdownElementEventMap>(type: K, listener: (this: HTMLAbcDropdownElement, ev: AbcDropdownCustomEvent<HTMLAbcDropdownElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcDropdownElementEventMap>(type: K, listener: (this: HTMLAbcDropdownElement, ev: AbcDropdownCustomEvent<HTMLAbcDropdownElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLAbcDropdownElement: {
         prototype: HTMLAbcDropdownElement;
         new (): HTMLAbcDropdownElement;
     };
+    interface HTMLAbcDropdownButtonElementEventMap {
+        "dropdownButtonFocus": void;
+        "dropdownButtonBlur": void;
+        "dropdownButtonClick": void;
+    }
     interface HTMLAbcDropdownButtonElement extends Components.AbcDropdownButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcDropdownButtonElementEventMap>(type: K, listener: (this: HTMLAbcDropdownButtonElement, ev: AbcDropdownButtonCustomEvent<HTMLAbcDropdownButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcDropdownButtonElementEventMap>(type: K, listener: (this: HTMLAbcDropdownButtonElement, ev: AbcDropdownButtonCustomEvent<HTMLAbcDropdownButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLAbcDropdownButtonElement: {
         prototype: HTMLAbcDropdownButtonElement;
         new (): HTMLAbcDropdownButtonElement;
     };
+    interface HTMLAbcFlyoutElementEventMap {
+        "flyoutChange": HTMLAbcFlyoutItemElement['item'];
+    }
     interface HTMLAbcFlyoutElement extends Components.AbcFlyout, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcFlyoutElementEventMap>(type: K, listener: (this: HTMLAbcFlyoutElement, ev: AbcFlyoutCustomEvent<HTMLAbcFlyoutElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcFlyoutElementEventMap>(type: K, listener: (this: HTMLAbcFlyoutElement, ev: AbcFlyoutCustomEvent<HTMLAbcFlyoutElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLAbcFlyoutElement: {
         prototype: HTMLAbcFlyoutElement;
         new (): HTMLAbcFlyoutElement;
     };
+    interface HTMLAbcFlyoutItemElementEventMap {
+        "itemClick": { item: string; selected: boolean };
+    }
     interface HTMLAbcFlyoutItemElement extends Components.AbcFlyoutItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcFlyoutItemElementEventMap>(type: K, listener: (this: HTMLAbcFlyoutItemElement, ev: AbcFlyoutItemCustomEvent<HTMLAbcFlyoutItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcFlyoutItemElementEventMap>(type: K, listener: (this: HTMLAbcFlyoutItemElement, ev: AbcFlyoutItemCustomEvent<HTMLAbcFlyoutItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLAbcFlyoutItemElement: {
         prototype: HTMLAbcFlyoutItemElement;

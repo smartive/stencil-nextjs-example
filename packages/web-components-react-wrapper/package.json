@@ -44,8 +44,7 @@
   },
   "dependencies": {
     "abc-web-components": "^0.0.0",
-    "@stencil/core": "4.6.0",
-    "canvas": "^2.11.2",
+    "@stencil/core": "4.7.0",
     "linkedom": "^0.16.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

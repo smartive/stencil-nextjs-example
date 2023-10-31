@@ -1,16 +1,25 @@
 // Original code from https://github.com/luwes/wesc
 
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* global globalThis */
-import { parseHTML } from 'linkedom';
+import type { parseHTML as parseHTMLType } from 'linkedom';
 
-let preshimGlobalThis;
+let preshimGlobalThis: Record<string, unknown> | undefined;
 
 shim();
 
 export function shim() {
   if (preshimGlobalThis) {
     return;
+  }
+
+  let parseHTML: typeof parseHTMLType;
+  // With this try/catch it is possible to use this package without getting the warning
+  // described here https://github.com/WebReflection/linkedom/issues/237
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    parseHTML = require('linkedom').parseHTML;
+  } catch (e) {
+    console.error(e);
   }
 
   const {

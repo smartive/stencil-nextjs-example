@@ -17,7 +17,6 @@
     "npm": "^9"
   },
   "scripts": {
-    "postinstall": "next telemetry disable",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

@@ -10,7 +10,7 @@ _Disclaimer: The Web Components are copied from a client project and all styles 
 
 1. Run `npm ci`.
 
-1. Apply the Stencil.js patches with `npm run app:patch:stenciljs`. (Can be reverted with `npm run app:unpatch:stenciljs`.)
+1. Apply the Stencil.js patches with `npm run patch:stenciljs`. (Can be reverted with `npm run unpatch:stenciljs`.)
 
    **@Stencil.js-Team**
 

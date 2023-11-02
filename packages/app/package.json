@@ -18,6 +18,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "next telemetry disable",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

@@ -48,7 +48,7 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
 
       const { name } = parse(require.resolve(importPath));
       const modulePath = format({ dir: distRoot, name, ext: '.js' });
-      const componentPath = `../components/${name}.js`;
+      const componentPath = `./components/${name}.js`;
       writeFileSync(modulePath, toModuleFile(defineCustomElementFunction, componentPath, webComponentTagName));
       types.push(webComponentTagName);
       modules.push(name);

@@ -1,0 +1,8 @@
+{
+    "extends": [
+      "prettier",
+      "@smartive/eslint-config/react"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "root": true
+  }

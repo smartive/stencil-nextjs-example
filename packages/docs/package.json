@@ -1,0 +1,78 @@
+{
+  "name": "abc-docs",
+  "version": "0.0.0",
+  "author": "smartive AG <hello@smartive.ch>",
+  "license": "ISC",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/smartive/stencil-nextjs-example/issues"
+  },
+  "homepage": "https://github.com/smartive/stencil-nextjs-example#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/smartive/stencil-nextjs-example.git"
+  },
+  "engines": {
+    "node": "^18",
+    "npm": "^9"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "start": "storybook -p 6006"
+  },
+  "dependencies": {
+    "@webcomponents/template-shadowroot": "^0.2.1",
+    "abc-web-components-react-wrapper": "^0.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.2",
+    "@smartive/eslint-config": "4.0.1",
+    "@smartive/prettier-config": "3.1.2",
+    "@storybook/addon-essentials": "^7.5.2",
+    "@storybook/addon-interactions": "^7.5.2",
+    "@storybook/addon-links": "^7.5.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.2",
+    "@storybook/react": "^7.5.2",
+    "@storybook/react-webpack5": "^7.5.2",
+    "@storybook/testing-library": "^0.2.2",
+    "@types/node": "18.18.8",
+    "@types/react": "18.2.34",
+    "@types/react-dom": "18.2.14",
+    "eslint": "8.52.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-storybook": "^0.6.15",
+    "prettier": "3.0.3",
+    "storybook": "^7.5.2",
+    "typescript": "5.2.2"
+  },
+  "nx": {
+    "targets": {
+      "dev": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "start": {
+        "dependsOn": [
+          "build"
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}

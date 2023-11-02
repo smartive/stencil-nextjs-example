@@ -17,9 +17,13 @@
     "npm": "^9"
   },
   "scripts": {
+    "predev": "next telemetry disable",
     "dev": "next dev",
+    "prebuild": "next telemetry disable",
     "build": "next build",
+    "prestart": "next telemetry disable",
     "start": "next start",
+    "prelint": "next telemetry disable",
     "lint": "next lint"
   },
   "dependencies": {

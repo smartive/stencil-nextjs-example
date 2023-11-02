@@ -23,7 +23,6 @@
     "components"
   ],
   "scripts": {
-    "postinstall": "next telemetry disable",
     "lint": "lerna run lint",
     "web-components:build": "lerna run build --scope=abc-web-components",
     "web-components-react-wrapper:build": "lerna run build --scope=abc-web-components-react-wrapper",

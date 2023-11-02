@@ -11,10 +11,6 @@
       "groupName": "TypeScript typings"
     },
     {
-      "packagePatterns": ["^@migros/mdx-*"],
-      "groupName": "MDX"
-    },
-    {
       "packagePatterns": ["^eslint*", "prettier", "^typescript-eslint*", "@smartive/prettier-config"],
       "groupName": "Linting"
     },

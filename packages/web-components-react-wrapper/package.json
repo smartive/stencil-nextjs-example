@@ -16,13 +16,22 @@
     "node": "^18",
     "npm": "^9"
   },
-  "type": "module",
-  "main": "dist/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "exports": {
-    ".": "./dist/esm/index.js",
-    "./server": "./dist/esm/lib/server.js",
-    "./client": "./dist/esm/lib/client/index.js"
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./server": {
+      "import": "./dist/esm/lib/server.js",
+      "require": "./dist/cjs/lib/server.js"
+    },
+    "./client": {
+      "import": "./dist/esm/lib/client/index.js",
+      "require": "./dist/cjs/lib/client/index.js"
+    }
   },
   "directories": {
     "lib": "lib"
@@ -32,9 +41,12 @@
     "patches"
   ],
   "scripts": {
-    "prebuild": "del-cli --force ./dist && copyfiles -f ../web-components/dist/components/*.js ./dist/components && make-dir ./dist/esm",
-    "build": "ESBK_DISABLE_CACHE=1 node --no-warnings --loader @esbuild-kit/esm-loader ./scripts/build.ts",
-    "postbuild": "tsc -p . && del-cli --force ./dist/esm/scripts",
+    "prebuild": "del-cli --force ./dist && copyfiles -f ../web-components/dist/components/*.js ./dist/esm/components && make-dir ./dist/esm",
+    "build": "npm run build:esm && npm run build:types && npm run build:cjs",
+    "build:esm": "tsx ./scripts/build.ts",
+    "postbuild:esm": "del-cli --force ./dist/esm/scripts",
+    "build:types": "tsc -p .",
+    "build:cjs": "esbuild dist/esm/*.js dist/esm/**/*.js --log-level=error --outdir=dist/cjs --format=cjs",
     "lint": "eslint .",
     "@comment_postinstall": "Behavior of the script below: if '.gitignore' exists in current directory, do nothing -- else, package is installed as dependencies so return error-code 1, causing patch-package to run.",
     "postinstall": "node -e \"try { require('fs').accessSync('./.gitignore', require('fs').constants.F_OK); } catch{ process.exit(1); }\" || (cp -R patches/ ../../../patches && cd ../../../ && npx --yes patch-package && rm -rf patches)"
@@ -43,24 +55,25 @@
     "access": "public"
   },
   "dependencies": {
-    "abc-web-components": "^0.0.0",
     "@stencil/core": "4.7.0",
+    "abc-web-components": "^0.0.0",
     "linkedom": "^0.16.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@esbuild-kit/esm-loader": "^2.6.5",
     "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
     "@types/node": "18.18.8",
-    "copyfiles": "^2.4.1",
+    "copyfiles": "2.4.1",
+    "del-cli": "5.1.0",
+    "esbuild": "0.19.5",
     "eslint": "8.52.0",
     "eslint-config-prettier": "9.0.0",
-    "del-cli": "^5.1.0",
-    "make-dir-cli": "^3.1.0",
+    "make-dir-cli": "3.1.0",
     "prettier": "3.0.3",
-    "typescript": "^5.2.2"
+    "tsx": "3.14.0",
+    "typescript": "5.2.2"
   },
   "nx": {
     "targets": {

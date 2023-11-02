@@ -51,11 +51,11 @@ ${toExport(toPascalCase(elementName))}
 const toTypeDeclaration = (elementName) =>
   `declare const ${toPascalCase(
     elementName,
-  )}: React.ForwardRefExoticComponent<React.PropsWithChildren<Partial<EnumsToStringLiterals<JSX.${toPascalCase(
+  )}: React.ForwardRefExoticComponent<React.PropsWithChildren<Partial<EnumsToStringLiterals<Components.${toPascalCase(
     elementName,
   )}> & { slot: string }>> & React.RefAttributes<HTMLElement | undefined>>;`;
 
-export const toTypesFile = (types, enums) => `import type { JSX, ${enums.join(', ')} } from 'abc-web-components';
+export const toTypesFile = (types, enums) => `import type { Components, ${enums.join(', ')} } from 'abc-web-components';
 import type React from 'react';
 
 type IsEnum<T> = T extends ${enums.join(' | ')} ? true : false;

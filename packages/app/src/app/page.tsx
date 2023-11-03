@@ -1,5 +1,3 @@
-import 'abc-web-components-react-wrapper/server';
-
 import { Accordion } from '@/components/accordion';
 import { Button } from '@/components/button';
 import { Dropdown } from '@/components/dropdown';

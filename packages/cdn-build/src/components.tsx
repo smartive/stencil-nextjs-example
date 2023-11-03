@@ -12,15 +12,15 @@ interface Window {
   };
 }
 
-const LoadWidget = async (
+const LoadComponent = async (
   el: React.FC | React.ComponentClass,
   selectorOrNode: string | Element,
   props: ComponentProps<React.FC | React.ComponentClass>,
 ) => {
-  const { WidgetLoader } = await import(
-    /* webpackChunkName: 'widget-loader' */ "./widget-loader"
+  const { ComponentLoader } = await import(
+    /* webpackChunkName: 'component-loader' */ "./component-loader"
   );
-  await WidgetLoader.render(el, selectorOrNode, props);
+  await ComponentLoader.render(el, selectorOrNode, props);
 };
 
 (window as unknown as Window).abc = {
@@ -30,9 +30,9 @@ const LoadWidget = async (
       props: ComponentProps<React.FC | React.ComponentClass>,
     ) => {
       const { Accordion } = await import(
-        /* webpackChunkName: 'abc/article-accordion' */ "./widgets/accordion"
+        /* webpackChunkName: 'abc/accordion' */ "./components/accordion"
       );
-      await LoadWidget(Accordion, selectorOrNode, props);
+      await LoadComponent(Accordion, selectorOrNode, props);
     },
   },
 };

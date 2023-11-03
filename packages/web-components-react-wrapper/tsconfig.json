@@ -6,8 +6,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "./dist/esm",
-    "declarationDir": "./dist/types",
+    "outDir": "./dist/esm/lib",
+    "declarationDir": "./dist/types/lib",
     "lib": [
       "dom",
       "es2015"
@@ -23,8 +23,6 @@
   },
   "include": [
     "lib",
-    "scripts",
-    ".eslintrc.cjs"
   ],
   "exclude": [
     "node_modules"

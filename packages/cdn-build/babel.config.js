@@ -1,5 +1,3 @@
-const base = require("./babel.config.umd.js");
-
 module.exports = function (api) {
   const presets = [
     "@babel/typescript",
@@ -14,7 +12,8 @@ module.exports = function (api) {
     ],
   ];
 
-  const baseConfig = base(api);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const baseConfig = require("./babel.config.umd.js")(api);
 
   return {
     ...baseConfig,

@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import { dirname, format, join, parse, relative } from 'node:path';
 import { exit } from 'node:process';
 import { fileURLToPath } from 'node:url';
-import { patchPackages, printProgress, toIndexFile, toModuleFile, toTypesFile } from './utils';
+import { printProgress, toIndexFile, toModuleFile, toTypesFile } from './utils';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -76,15 +76,12 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
   console.info('writing modules completed!');
 };
 
-patchPackages();
 createReactWrapperModules({
   entryPoints: readdirSync(COMPONENTS_DIR)
     .filter((file) => file.startsWith('abc') && file.endsWith('.js'))
     .map((file) => join(COMPONENTS_DIR, file)),
   distRoot: join(DIST_DIR),
-})
-  .then(() => patchPackages(true))
-  .catch((err) => {
-    console.error('unexpected error generating module!', err);
-    exit(1);
-  });
+}).catch((err) => {
+  console.error('unexpected error generating module!', err);
+  exit(1);
+});

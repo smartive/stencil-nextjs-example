@@ -1,29 +1,4 @@
-import { writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
 import { stdout } from 'node:process';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const PACKAGES_DIR = join(__dirname, '..', '..');
-
-export const patchPackages = (revert = false) =>
-  [
-    join(PACKAGES_DIR, '..', 'node_modules', '@stencil', 'core', 'internal', 'client', 'package.json'),
-    join(PACKAGES_DIR, 'web-components', 'package.json'),
-  ].forEach((packagePath) => patchPackageToModule(packagePath, revert));
-
-const patchPackageToModule = (packagePath, revert = false) => {
-  const require = createRequire(import.meta.url);
-  const stencilPackageJson = require(packagePath);
-  if (revert) {
-    delete stencilPackageJson.type;
-  } else {
-    stencilPackageJson.type = 'module';
-  }
-  writeFileSync(packagePath, JSON.stringify(stencilPackageJson, null, 2));
-};
 
 const clearAndUpper = (kebabText) => kebabText.replace(/-/, '').toUpperCase();
 

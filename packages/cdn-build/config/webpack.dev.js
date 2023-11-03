@@ -8,8 +8,8 @@ module.exports = {
   plugins: [
     ...(config.plugins || []),
     new HtmlWebpackPlugin({
-      title: "Embed widget example",
-      template: "widget-example.html",
+      title: "CDN Example",
+      template: "example.html",
     }),
   ],
   optimization: {

@@ -2,23 +2,12 @@
 
 import { AbcButton } from 'abc-web-components-react-wrapper';
 import { AbcWrapper } from 'abc-web-components-react-wrapper/client';
-import { FC, useEffect, useRef } from 'react';
+import { FC } from 'react';
 
-export const Button: FC = () => {
-  const ref = useRef<HTMLElement>(null);
-  useEffect(() => {
-    const { current } = ref;
-    const onClick = (event: Event) => console.info((event as CustomEvent<string>)['detail']);
-    current?.addEventListener('click', onClick);
-
-    return () => current?.removeEventListener('click', onClick);
-  }, [ref]);
-
-  return (
-    <AbcWrapper>
-      <AbcButton variant="secondary" size="md" as="button" ref={ref}>
-        Button
-      </AbcButton>
-    </AbcWrapper>
-  );
-};
+export const Button: FC = () => (
+  <AbcWrapper>
+    <AbcButton variant="secondary" size="md" as="button" onClick={(event) => console.info(event)}>
+      Button
+    </AbcButton>
+  </AbcWrapper>
+);

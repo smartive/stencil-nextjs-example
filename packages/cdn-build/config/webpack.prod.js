@@ -1,5 +1,5 @@
 module.exports = {
-  entry: ["./src/widgets.tsx"],
+  entry: ["./src/components.tsx"],
   mode: "production",
   output: {
     filename: "[name].js",

@@ -1,7 +1,7 @@
 import React, { ComponentProps } from "react";
 import * as ReactDOM from "react-dom/client";
 
-export const WidgetLoader = {
+export const ComponentLoader = {
   render: async (
     CustomComponent: React.FC | React.ComponentClass,
     selectorOrNode: string | Element,

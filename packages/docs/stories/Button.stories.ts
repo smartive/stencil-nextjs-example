@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { Button } from './Button';
+import { AbcButton } from 'abc-web-components-react-wrapper';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Example/Button',
-  component: Button,
+  title: 'Example/AbcButton',
+  component: AbcButton,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
+    onClick: { action: 'clicked' },
     variant: {
       control: {
         type: 'select',
@@ -24,7 +24,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof AbcButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

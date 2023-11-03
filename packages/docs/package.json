@@ -19,7 +19,8 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
-    "start": "storybook -p 6006"
+    "start": "storybook -p 6006",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@webcomponents/template-shadowroot": "^0.2.1",

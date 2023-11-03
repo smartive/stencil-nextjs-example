@@ -67,7 +67,7 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
       );
 
     writeFileSync(join(distRoot, 'index.js'), toIndexFile(modules));
-    writeFileSync(join(distRoot, 'index.d.ts'), toTypesFile(types, enums));
+    writeFileSync(join(distRoot, '..', 'types', 'index.d.ts'), toTypesFile(types, enums));
   } catch (err) {
     console.error('unexpected error generating module!', err);
     exit(1);

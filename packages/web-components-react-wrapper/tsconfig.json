@@ -7,6 +7,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "outDir": "./dist/esm",
+    "declarationDir": "./dist/types",
     "lib": [
       "dom",
       "es2015"

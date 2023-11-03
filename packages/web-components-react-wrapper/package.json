@@ -18,19 +18,22 @@
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
     },
     "./server": {
       "import": "./dist/esm/lib/server.js",
-      "require": "./dist/cjs/lib/server.js"
+      "require": "./dist/cjs/lib/server.js",
+      "types": "./dist/types/lib/server.d.ts"
     },
     "./client": {
       "import": "./dist/esm/lib/client/index.js",
-      "require": "./dist/cjs/lib/client/index.js"
+      "require": "./dist/cjs/lib/client/index.js",
+      "types": "./dist/types/lib/client/index.d.ts"
     }
   },
   "directories": {
@@ -41,11 +44,12 @@
     "patches"
   ],
   "scripts": {
-    "prebuild": "del-cli --force ./dist && copyfiles -f ../web-components/dist/components/*.js ./dist/esm/components && make-dir ./dist/esm",
+    "prebuild": "del-cli --force ./dist && copyfiles -f ../web-components/dist/components/*.js ./dist/esm/components && make-dir ./dist/esm && make-dir ./dist/types",
     "build": "npm run build:esm && npm run build:types && npm run build:cjs",
     "build:esm": "tsx ./scripts/build.ts",
     "postbuild:esm": "del-cli --force ./dist/esm/scripts",
     "build:types": "tsc -p .",
+    "postbuild:types": "del-cli --force ./dist/types/scripts",
     "build:cjs": "esbuild dist/esm/*.js dist/esm/**/*.js --log-level=error --outdir=dist/cjs --format=cjs",
     "lint": "eslint .",
     "@comment_postinstall": "Behavior of the script below: if '.gitignore' exists in current directory, do nothing -- else, package is installed as dependencies so return error-code 1, causing patch-package to run.",

@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   description: 'This Next.js App demonstrates how to use the ABC Web Components.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  await import('abc-web-components-react-wrapper/server');
+
   return (
     <html lang="en">
       <body

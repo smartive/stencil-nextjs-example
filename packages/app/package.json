@@ -36,9 +36,9 @@
   "devDependencies": {
     "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
-    "@types/node": "18.18.10",
-    "@types/react": "18.2.37",
-    "@types/react-dom": "18.2.15",
+    "@types/node": "18.18.11",
+    "@types/react": "18.2.38",
+    "@types/react-dom": "18.2.16",
     "eslint": "8.54.0",
     "eslint-config-next": "14.0.3",
     "eslint-config-prettier": "9.0.0",

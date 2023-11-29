@@ -67,7 +67,7 @@
     "@babel/parser": "^7.23.0",
     "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
-    "@types/node": "18.18.13",
+    "@types/node": "18.18.14",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
     "esbuild": "0.19.8",

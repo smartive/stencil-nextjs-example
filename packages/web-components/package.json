@@ -39,7 +39,7 @@
     "@smartive/prettier-config": "3.1.2",
     "@stencil-community/eslint-plugin": "smartive/stencil-eslint#feat/typescript-v5-dist",
     "@stencil/sass": "3.0.7",
-    "@types/node": "18.19.0",
+    "@types/node": "18.19.1",
     "eslint": "8.55.0",
     "eslint-config-prettier": "9.0.0",
     "prettier": "3.1.0",

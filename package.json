@@ -36,8 +36,8 @@
     "app:clean": "del-cli --force ./packages/app/.next"
   },
   "engines": {
-    "node": "^18",
-    "npm": "^9"
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
   },
   "devDependencies": {
     "del-cli": "^5.1.0",

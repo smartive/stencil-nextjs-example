@@ -32,7 +32,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@stencil/core": "4.7.1"
+    "@stencil/core": "github:smartive/stencil-patched#4.8.1-smartive"
   },
   "devDependencies": {
     "@smartive/eslint-config": "4.0.1",

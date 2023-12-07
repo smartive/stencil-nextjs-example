@@ -8,12 +8,12 @@ Big thanks goes out to [Wesley Luyten](https://github.com/luwes) who created [We
 
 1. Run `npm ci`.
 
-1. Run `npm run patch:stenciljs` to patch Stencil.js.
-
-   This is necessary because Stencil.js does not fallback to `globalThis` when there is no `window` available e.g. on the server. A [pull request](https://github.com/ionic-team/stencil/pull/4917) which would add this feature and the corresponding [issue](https://github.com/ionic-team/stencil/issues/4916) was closed by the Stencil.js Team. 😔
-   
 1. Run either `npm run app:dev` or `npm run app:start`
 
 1. Open http://localhost:3000
 
    The Web Components from `./packages/web-components` are rendered server-side. 🎉
+
+### Disclaimer
+
+We use a [patched version of Stencil.js](https://github.com/smartive/stencil-patched) because by default Stencil.js does not fallback to `globalThis` when there is no `window` available e.g. on the server. A [pull request](https://github.com/ionic-team/stencil/pull/4917) which would add this feature and the corresponding [issue](https://github.com/ionic-team/stencil/issues/4916) was closed by the Stencil.js Team. 😔

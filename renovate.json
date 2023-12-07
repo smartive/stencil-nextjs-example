@@ -3,6 +3,10 @@
   "extends": ["config:base"],
   "packageRules": [
     {
+      "packagePatterns": ["@types/node", "node", "npm"],
+      "groupName": "Node and NPM"
+    },
+    {
       "packagePatterns": ["react","react-dom","@types/react","@types/react-dom"],
       "groupName": "React"
     },

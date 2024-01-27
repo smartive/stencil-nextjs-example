@@ -68,7 +68,7 @@
     "@types/node": "20.11.8",
     "copyfiles": "2.4.1",
     "del-cli": "5.1.0",
-    "esbuild": "0.19.12",
+    "esbuild": "0.20.0",
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "make-dir-cli": "3.1.0",

@@ -42,8 +42,9 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
         continue;
       }
 
-      const tagName = Object.values<Record<string, string>>(component).find((value) => Object.keys(value).includes('is'))
-        ?.is;
+      const tagName = Object.values<Record<string, string>>(component).find((value) =>
+        Object.keys(value).includes('is'),
+      )?.is;
       if (!tagName) {
         console.error('no web component tag name found for', importPath);
         continue;

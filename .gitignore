@@ -89,6 +89,7 @@ out
 
 # production
 build
+hydrate
 
 # Nuxt.js build / generate output
 .nuxt

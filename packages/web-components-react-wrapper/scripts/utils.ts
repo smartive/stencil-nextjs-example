@@ -1,15 +1,19 @@
 import { parse as babelParse } from '@babel/parser';
 import { Statement, TSInterfaceDeclaration, TSModuleDeclaration, TSPropertySignature, TSTypeElement } from '@babel/types';
+import { readFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { stdout } from 'node:process';
+import { fileURLToPath } from 'node:url';
 import { NATIVE_GLOBAL_EVENTS, toPascalCase } from '../lib/utils';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const toKebabCase = (input: string) =>
   input
     .replace(/([a-z])([A-Z])/g, '$1-$2')
     .replace(/[\s_]+/g, '-')
     .toLowerCase();
-
-const toExport = (exportName: string) => `export { ${exportName} };`;
 
 const toWebComponentTagName = (eventMapName: string) =>
   toKebabCase(eventMapName.replace('HTML', '').replace('ElementEventMap', ''));
@@ -33,13 +37,13 @@ export const parseComponentsEvents = (source: string) => {
       return events;
     }
 
-    const statements = node.body.body.filter(isElementEventMap);
+    const statements = node.body.body.filter(isElementEventMap).map(({ id, body }) => ({
+      name: id.name,
+      body: body.body.filter(isTSPropertySignature),
+    }));
 
-    for (const { id, body } of statements) {
-      events[toWebComponentTagName(id.name)] = {
-        name: id.name,
-        events: body.body.filter(isTSPropertySignature).map(({ key }) => key['value']),
-      };
+    for (const { name, body } of statements) {
+      events[toWebComponentTagName(name)] = { name, events: body.map(({ key }) => key['value']) };
     }
 
     return events;
@@ -55,86 +59,99 @@ export const parseEnums = (source: string) =>
       .map((enumName) => enumName.trim()),
   ) ?? [];
 
+const stripTemplateComments = (source: string) =>
+  source
+    .replace(/\/\/ @ts-expect-error - leads only to error in template file\n/g, '')
+    .replace(/\/\* eslint-disable import\/no-unresolved \*\/\n/g, '')
+    .replace(/\/\* eslint-disable import\/no-unused-vars \*\/\n/g, '');
+
+const compileTemplate = (
+  templateFilename: string,
+  {
+    elementName,
+    defineCustomElementFunction = '',
+    importPath = '',
+    customEvents = [],
+    types = false,
+  }: {
+    elementName: string;
+    defineCustomElementFunction?: string;
+    importPath?: string;
+    customEvents?: string[];
+    types?: boolean;
+  },
+) => {
+  const template = readFileSync(`${__dirname}/templates/${templateFilename}`).toString();
+  const events = types
+    ? customEvents.length > 0
+      ? ` & { ${customEvents.join(',\n ')} }`
+      : ''
+    : customEvents.length > 0
+      ? `['${customEvents.join(`', '`)}']`
+      : '[]';
+  const compiled = template
+    .replace(/__DEFINE_CUSTOM_ELEMENT_FUNCTION__/g, defineCustomElementFunction)
+    .replace(/__IMPORT_PATH__/g, importPath)
+    .replace(/__CUSTOM_EVENTS__/g, events)
+    .replace(/__PASCAL_CASE_ELEMENT_NAME__/g, toPascalCase(elementName))
+    .replace(/__ELEMENT_NAME__/g, elementName);
+
+  return stripTemplateComments(compiled);
+};
+
 export const toModuleFile = (
   defineCustomElementFunction: string,
   importPath: string,
   elementName: string,
   customEvents: string[] = [],
-) => `'use client';
+) => compileTemplate('component.ts', { elementName, defineCustomElementFunction, importPath, customEvents });
 
-import React, { useImperativeHandle, useRef } from 'react';
-import { ${defineCustomElementFunction} } from '${importPath}';
-import { omitEventCallbacks, toNativeProps, useEventListeners } from './lib/utils.js';
+export const toServerOnlyModuleFile = (elementName: string) => compileTemplate('component.server-only.ts', { elementName });
 
-if (!customElements.get('${elementName}')) {
-  ${defineCustomElementFunction}();
-}
-
-const customEvents = ${customEvents.length > 0 ? `['${customEvents.join(`', '`)}']` : '[]'};
-const ${toPascalCase(elementName)} = React.forwardRef(({ children = [], ...props }, ref) => {
-  const nativeProps = toNativeProps(omitEventCallbacks(customEvents, props));
-  if (typeof window !== 'undefined') {
-    const innerRef = useRef();
-    useImperativeHandle(ref, () => innerRef.current);
-    useEventListeners(innerRef, customEvents, props);
-
-    return React.createElement('${elementName}', { ...nativeProps, ref: innerRef }, children);
-  }
-
-  return React.createElement('${elementName}', { ...nativeProps, ref }, children);
-});
-
-${toExport(toPascalCase(elementName))}
-`;
-
-const toTypeDeclaration = (elementName: string, customEvents?: { name: string; events: string[] }) =>
-  `declare const ${toPascalCase(
+const toElementTypeDeclaration = (
+  elementName: string,
+  { name, events }: { name: string; events: string[] } = { name: '', events: [] },
+) =>
+  compileTemplate('types.component.d.ts', {
     elementName,
-  )}: React.ForwardRefExoticComponent<React.PropsWithChildren<Partial<EnumsToStringLiterals<Components.${toPascalCase(
-    elementName,
-  )}> & {
-    slot: string
-  } & GlobalEventHandlers${
-    customEvents
-      ? ` & {
-    ${customEvents.events
-      .map(
-        (eventName) =>
-          `on${toPascalCase(eventName)}: (event: ${toPascalCase(elementName)}CustomEvent<${
-            customEvents.name
-          }['${eventName}']>) => void`,
-      )
-      .join(',\n  ')}
-  }`
-      : ''
-  }>> & React.RefAttributes<HTMLElement | undefined>>;`;
+    customEvents: events.map(
+      (event) => `on${toPascalCase(event)}: (event: ${toPascalCase(elementName)}CustomEvent<${name}['${event}']>) => void`,
+    ),
+    types: true,
+  });
 
 export const toTypesFile = (
   elements: string[],
   enums: string[],
   customEvents: Record<string, { name: string; events: string[] }>,
-) => `import type { Components, ${[
-  ...enums,
-  ...elements.map((elementName) => `${toPascalCase(elementName)}CustomEvent`),
-].join(', ')} } from 'abc-web-components';
-import type React from 'react';
+) => {
+  const template = readFileSync(`${__dirname}/templates/types.d.ts`).toString();
+  const globalEvents = NATIVE_GLOBAL_EVENTS.map(
+    (event) => `on${toPascalCase(event)}: (event: GlobalEventHandlersEventMap['${event}']) => void`,
+  );
+  const elementTypes = elements.map((element) => toElementTypeDeclaration(element, customEvents[element]));
+  const imports = [
+    ...enums,
+    ...elements.map((element) => `${toPascalCase(element)}CustomEvent`).filter((event) => elementTypes.includes(event)),
+  ];
+  const exports = elements
+    .map(toPascalCase)
+    .flatMap((element) => [element, `${element}ServerOnly`, `static${element}HtmlServerOnly`]);
 
-type GlobalEventHandlers = {
-${NATIVE_GLOBAL_EVENTS.map(
-  (eventName) => `on${toPascalCase(eventName)}: (event: GlobalEventHandlersEventMap['${eventName}']) => void`,
-).join(',\n')}
+  const compiled = template
+    .replace(/__IMPORTS_/g, imports.join(', '))
+    .replace(/__GLOBAL_EVENTS__/g, globalEvents.join(',\n'))
+    .replace(/__ENUMS__/g, enums.join(' | '))
+    .replace(/__ELEMENT_TYPES__;/g, elementTypes.join('\n'))
+    .replace(/__EXPORTS__/g, exports.join(',\n'));
+
+  return stripTemplateComments(compiled);
 };
-type IsEnum<T> = T extends ${enums.join(' | ')} ? true : false;
-type EnumsToStringLiterals<T> = {
-  [K in keyof T]: Exclude<IsEnum<T[K]> extends true ? \`\${T[K]}\` : T[K], 'undefined'>;
-};
 
-${elements.map((elementName) => toTypeDeclaration(elementName, customEvents[elementName])).join('\n')}
-
-${toExport(elements.map(toPascalCase).join(',\n'))}
-`;
-
-export const toIndexFile = (modules: string[]) => `${modules.map((module) => `export * from './${module}';`).join('\n')}\n`;
+export const toIndexFile = (modules: string[]) =>
+  `${modules
+    .flatMap((module) => [`export * from './${module}';`, `export * from './${module}.server-only';`])
+    .join('\n')}\n`;
 
 export const printProgress = (progress: number) => {
   if (!stdout.clearLine) {

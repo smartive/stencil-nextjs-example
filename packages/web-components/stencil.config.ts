@@ -9,6 +9,9 @@ export const config: Config = {
     {
       type: 'dist-custom-elements',
     },
+    {
+      type: 'dist-hydrate-script',
+    },
   ],
   plugins: [sass(), inlineSvg()],
 };

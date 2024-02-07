@@ -3,7 +3,15 @@ import { createRequire } from 'node:module';
 import { dirname, format, join, parse } from 'node:path';
 import { exit } from 'node:process';
 import { fileURLToPath } from 'node:url';
-import { parseComponentsEvents, parseEnums, printProgress, toIndexFile, toModuleFile, toTypesFile } from './utils';
+import {
+  parseComponentsEvents,
+  parseEnums,
+  printProgress,
+  toIndexFile,
+  toModuleFile,
+  toServerOnlyModuleFile,
+  toTypesFile,
+} from './utils';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -51,10 +59,15 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
       }
 
       const { name } = parse(require.resolve(importPath));
-      const modulePath = format({ dir: distRoot, name, ext: '.js' });
       const componentPath = `./components/${name}.js`;
       const componentEvents = componentsEvents[tagName]?.events;
+
+      const modulePath = format({ dir: distRoot, name, ext: '.js' });
       writeFileSync(modulePath, toModuleFile(defineFunctionName, componentPath, tagName, componentEvents));
+
+      const serverOnlyModulePath = format({ dir: distRoot, name: `${name}.server-only`, ext: '.js' });
+      writeFileSync(serverOnlyModulePath, toServerOnlyModuleFile(tagName));
+
       types.push(tagName);
       modules.push(name);
       i++;

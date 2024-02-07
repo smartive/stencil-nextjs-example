@@ -40,13 +40,13 @@
     "lib": "lib"
   },
   "files": [
-    "dist",
-    "patches"
+    "dist"
   ],
   "scripts": {
-    "prebuild": "del-cli --force ./dist && copyfiles -f ../web-components/dist/components/*.js ./dist/esm/components && make-dir ./dist/esm && make-dir ./dist/types",
+    "prebuild": "del-cli --force ./dist && cpy --flat ../web-components/dist/components/*.js ./dist/esm/components && cpy --flat ../web-components/hydrate/*.js ./dist/esm/hydrate && make-dir ./dist/esm && make-dir ./dist/types",
     "build": "npm run build:esm && npm run build:types && npm run build:cjs",
     "build:esm": "tsx ./scripts/build.ts",
+    "prebuild:types": "cpy ../web-components/dist/types/. ./dist/types/web-components/",
     "build:types": "tsc -p .",
     "build:cjs": "esbuild dist/esm/*.js dist/esm/**/*.js dist/esm/**/**/*.js --log-level=error --outdir=dist/cjs --format=cjs",
     "lint": "eslint ."
@@ -56,7 +56,6 @@
   },
   "dependencies": {
     "@stencil/core": "github:smartive/stencil-patched#v4.12.1",
-    "abc-web-components": "^0.0.0",
     "linkedom": "^0.16.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
@@ -66,7 +65,8 @@
     "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
     "@types/node": "20.11.16",
-    "copyfiles": "2.4.1",
+    "abc-web-components": "^0.0.0",
+    "cpy-cli": "5.0.0",
     "del-cli": "5.1.0",
     "esbuild": "0.20.0",
     "eslint": "8.56.0",

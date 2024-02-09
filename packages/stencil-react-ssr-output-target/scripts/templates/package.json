@@ -1,0 +1,32 @@
+{
+  "name": "your-package-name",
+  "version": "0.0.0-your-version",
+  "author": "Your Name Here <your@name.here>",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/esm/lib/server.js",
+      "require": "./dist/cjs/lib/server.js",
+      "types": "./dist/types/lib/server.d.ts"
+    },
+    "./client": {
+      "import": "./dist/esm/lib/client/index.js",
+      "require": "./dist/cjs/lib/client/index.js",
+      "types": "./dist/types/lib/client/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

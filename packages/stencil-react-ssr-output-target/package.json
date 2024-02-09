@@ -1,0 +1,43 @@
+{
+  "name": "stencil-react-ssr-output-target",
+  "version": "0.0.0",
+  "description": "TODO: description",
+  "author": "Dominique Wirz <dominique@smartive.ch>",
+  "homepage": "https://github.com/smartive/stencil-nextjs-example/tree/main/packages/stencil-react-ssr-output-target#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartive/stencil-nextjs-example.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smartive/stencil-nextjs-example/issues"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "tsc -p . --watch",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@babel/parser": "^7.23.0",
+    "commander": "^12.0.0",
+    "cpy-cli": "5.0.0",
+    "del-cli": "5.1.0",
+    "esbuild": "0.20.0",
+    "tsx": "4.7.0",
+    "typescript": "5.3.3"
+  },
+  "devDependencies": {
+    "@smartive/eslint-config": "4.0.1",
+    "@smartive/prettier-config": "3.1.2",
+    "@types/node": "20.11.16",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "prettier": "3.2.5",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

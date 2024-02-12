@@ -1,6 +1,8 @@
+import { createCompiler } from '@stencil/core/compiler';
 import type { OutputTargetCustom } from '@stencil/core/internal';
+import * as esbuild from 'esbuild';
 import { spawnSync } from 'node:child_process';
-import { existsSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
@@ -11,29 +13,41 @@ import path from 'node:path';
  * @returns an output target that can be used by the Stencil compiler
  */
 export const reactSSROutputTarget = (
-  config: { package?: PackageJsonConfig; outPath?: string } = {},
+  config: {
+    package?: PackageJsonConfig;
+    outPath?: string;
+    type?: 'server-only' | 'wrapper';
+  } = {
+    outPath: 'dist/react-components-ssr',
+    type: 'server-only',
+  },
 ): OutputTargetCustom => ({
   type: 'custom',
   name: 'react-ssr-library',
-  validate({ outputTargets }) {
-    if (!['dist-custom-elements', 'dist-hydrate-script'].every((target) => outputTargets.some((o) => o.type === target))) {
-      throw new Error('outputTargets must include `dist-custom-elements` and `dist-hydrate-script`');
-    }
-  },
-  async generator({ rootDir, fsNamespace }, _, buildContext) {
+  async generator(stencilConfig, _, buildContext) {
+    const { rootDir, fsNamespace } = stencilConfig;
     const { debug } = buildContext.config.flags;
     const timespan = buildContext.createTimeSpan(`generate react started`, true);
 
-    const stencilDistDir = path.join(rootDir, 'dist');
-    const outputDir = path.join(rootDir, ...(config.outPath ? [config.outPath] : ['dist', 'react-components-ssr']));
+    const outputDir = path.join(rootDir, config.outPath);
     const distDir = path.join(outputDir, 'dist');
     const esmDir = path.join(distDir, 'esm');
     const typesDir = path.join(distDir, 'types');
 
-    del(distDir);
-    cpy(path.join(stencilDistDir, 'components', '*.js'), path.join(esmDir, 'components'), true);
-    cpy(path.join(stencilDistDir, 'types'), path.join(typesDir, 'web-components'));
-    cpy(path.join(rootDir, 'hydrate', '*.js'), path.join(esmDir, 'hydrate'), true);
+    rmSync(distDir, { recursive: true, force: true });
+    mkdirSync(path.join(esmDir, 'components'), { recursive: true });
+
+    const compiler = await createCompiler({
+      ...stencilConfig,
+      outputTargets: [
+        { type: 'dist-custom-elements', dir: path.join(esmDir, 'components') },
+        { type: 'dist-hydrate-script', empty: true, dir: path.join(esmDir, 'hydrate') },
+      ],
+    });
+    await compiler.build();
+    await compiler.destroy();
+    cpSync(path.join(rootDir, 'dist', 'types'), typesDir, { recursive: true });
+    rmSync(path.join(esmDir, 'hydrate', 'package.json'), { force: true });
 
     exec(
       'tsx',
@@ -41,8 +55,6 @@ export const reactSSROutputTarget = (
         path.join(__dirname, 'scripts', 'build.ts'),
         '--dist-root',
         esmDir,
-        '--stencil-dist-dir',
-        stencilDistDir,
         '--components-prefix',
         fsNamespace.split('-').shift(),
       ],
@@ -64,38 +76,18 @@ export const reactSSROutputTarget = (
       debug,
     );
 
-    exec(
-      'esbuild',
-      [
-        path.join(esmDir, '*.js'),
-        path.join(esmDir, '**', '*.js'),
-        path.join(esmDir, '**', '**', '*.js'),
-        '--log-level=error',
-        `--outdir=${path.join(distDir, 'cjs')}`,
-        '--format=cjs',
-      ],
-      debug,
-    );
+    await esbuild.build({
+      entryPoints: [path.join(esmDir, '*.js'), path.join(esmDir, '**', '*.js'), path.join(esmDir, '**', '**', '*.js')],
+      format: 'cjs',
+      logLevel: 'error',
+      outdir: path.join(distDir, 'cjs'),
+    });
 
-    createPackageJson(outputDir, config.package || {});
+    createPackageJson(outputDir, config.type === 'server-only', config.package || {});
 
     timespan.finish(`generate react finished`);
   },
 });
-
-const del = (path: string) => {
-  const { error } = spawnSync('del-cli', ['--force', path], { stdio: 'inherit' });
-  if (error) {
-    throw error;
-  }
-};
-
-const cpy = (from: string, to: string, flat = false) => {
-  const { error } = spawnSync('cpy', [...(flat ? ['--flat'] : []), from, to], { stdio: 'inherit' });
-  if (error) {
-    throw error;
-  }
-};
 
 const exec = (command: string, args: string[], debug = false) => {
   const { error } = spawnSync(command, args, { stdio: debug ? 'inherit' : 'ignore' });
@@ -105,7 +97,6 @@ const exec = (command: string, args: string[], debug = false) => {
 };
 
 type PackageJsonConfig = {
-  stencilPatched?: boolean;
   name?: string;
   version?: string;
   author?: string;
@@ -113,13 +104,8 @@ type PackageJsonConfig = {
 };
 const createPackageJson = (
   outputDir: string,
-  {
-    author = 'Stencil',
-    license = 'ISC',
-    name = 'stencil-react-ssr-output-target',
-    version = '0.0.0',
-    stencilPatched = false,
-  }: PackageJsonConfig,
+  patchStencil = false,
+  { author = 'Stencil React SSR', license = 'ISC', name = 'stencil-react-ssr', version = '0.0.0' }: PackageJsonConfig,
 ) => {
   const outputPackageJsonPath = path.join(outputDir, 'package.json');
   const require = createRequire(__filename);
@@ -134,7 +120,7 @@ const createPackageJson = (
     templatePackageJson.author = author;
     templatePackageJson.license = license;
 
-    if (stencilPatched) {
+    if (patchStencil) {
       templatePackageJson.dependencies.linkedom = '0.16.1';
       templatePackageJson.dependencies['@stencil/core'] = 'github:smartive/stencil-patched#v4.12.1';
     } else {

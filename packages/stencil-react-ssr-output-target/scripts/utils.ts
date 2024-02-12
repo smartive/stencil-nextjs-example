@@ -124,7 +124,7 @@ export const toTypesFile = (
   const elementTypes = elements.map((element) => toElementTypeDeclaration(element, customEvents[element]));
   const imports = [
     ...enums,
-    ...elements.map((element) => `${toPascalCase(element)}CustomEvent`).filter((event) => elementTypes.includes(event)),
+    ...elements.map((element) => customEvents[element] && `${toPascalCase(element)}CustomEvent`).filter(Boolean),
   ];
   const exports = elements
     .map(toPascalCase)

@@ -1,4 +1,4 @@
-import { AbcButtonServerOnly } from 'react-web-components-test';
+import { AbcButtonServerOnly } from 'abc-web-components-react-wrapper';
 import { FC, PropsWithChildren } from 'react';
 import { ButtonWithRSC } from './button-with-rsc';
 

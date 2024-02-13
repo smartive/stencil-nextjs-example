@@ -55,7 +55,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@stencil/core": "github:smartive/stencil-patched#v4.12.1",
+    "@stencil/core": "github:smartive/stencil-patched#v4.12.2",
     "linkedom": "^0.16.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

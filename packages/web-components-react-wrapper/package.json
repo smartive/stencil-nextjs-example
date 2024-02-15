@@ -64,7 +64,7 @@
     "@babel/parser": "^7.23.0",
     "@smartive/eslint-config": "4.0.1",
     "@smartive/prettier-config": "3.1.2",
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.18",
     "abc-web-components": "^0.0.0",
     "cpy-cli": "5.0.0",
     "del-cli": "5.1.0",

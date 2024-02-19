@@ -1,6 +1,6 @@
 {
   "name": "stencil-nextjs-example",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "This project shows how we got Stencil Web Components working inside the Next.js app directory.",
   "author": "smartive AG <hello@smartive.ch>",
   "license": "ISC",
@@ -34,7 +34,7 @@
     "build:docs": "lerna run build --skip-nx-cache --scope=abc-docs",
     "build:app": "lerna run build --skip-nx-cache --scope=abc-app",
     "start:app": "lerna run start --skip-nx-cache --scope=abc-app",
-    "publish:stencil-react-ssr-output-target": "lerna publish --yes"
+    "publish:stencil-react-ssr-output-target": "lerna version --conventional-commits --conventional-graduate=* --yes && lerna publish --yes"
   },
   "engines": {
     "node": "^20.0.0",

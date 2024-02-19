@@ -25,7 +25,6 @@
   "scripts": {
     "lint": "lerna run lint",
     "web-components:build": "lerna run build --scope=abc-web-components",
-    "web-components-react-wrapper:build": "lerna run build --scope=abc-web-components-react-wrapper",
     "cdn-build:build": "lerna run build --skip-nx-cache --scope=abc-cdn-build",
     "cdn-build:dev": "lerna run dev --skip-nx-cache --scope=abc-cdn-build",
     "docs:build": "lerna run build --skip-nx-cache --scope=abc-docs",

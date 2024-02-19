@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type React from 'react';
 // @ts-expect-error - leads only to error in template file
-import type { Components, __IMPORTS_ } from './web-components';
+import type { Components, __IMPORTS_ } from './components';
 
 type GlobalEventHandlers = { __GLOBAL_EVENTS__ };
 // @ts-expect-error - leads only to error in template file

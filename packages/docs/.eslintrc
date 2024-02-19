@@ -1,5 +1,6 @@
 {
   "extends": [
+    "plugin:storybook/recommended",
     "prettier",
     "@smartive/eslint-config/react"
   ],

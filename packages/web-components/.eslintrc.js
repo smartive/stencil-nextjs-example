@@ -34,7 +34,7 @@ module.exports = {
     },
   ],
   parserOptions: {
-    project: ['./packages/web-components/tsconfig.json'],
+    project: ['./packages/web-components/tsconfig.eslint.json'],
     tsconfigRootDir: path.resolve(__dirname, '../../'),
   },
 };

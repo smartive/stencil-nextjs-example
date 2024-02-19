@@ -5,8 +5,8 @@ import { renderToString } from './hydrate';
 
 const stylePattern = /<style[^>]*>([\s\S]*?)<\/style>/gi;
 const bodyPattern = /<body[^>]*>([\s\S]*?)<\/body>/i;
-const openTagPattern = /<abc-([^>\s]+)([^>]*)>/g;
-const closeTagPattern = /<\/abc-([^>\s]+)>/g;
+const openTagPattern = /<__ELEMENT_TAG_PREFIX__-([^>\s]+)([^>]*)>/g;
+const closeTagPattern = /<\/__ELEMENT_TAG_PREFIX__-([^>\s]+)>/g;
 
 const toHtml = async ({ children, ...props }) => {
   const stringifiedProps = Object.entries(props).reduce((result, [key, value]) => `${result} ${key}="${value}"`, '');
@@ -19,7 +19,9 @@ const toHtml = async ({ children, ...props }) => {
   const style = styles.map((style) => style.replace(stylePattern, '$1')).join('');
 
   const body = (html.match(bodyPattern) ?? [])[1] ?? '';
-  const component = body.replace(openTagPattern, '<span data-tag="abc-$1"$2>').replace(closeTagPattern, '</span>');
+  const component = body
+    .replace(openTagPattern, '<span data-tag="__ELEMENT_TAG_PREFIX__-$1"$2>')
+    .replace(closeTagPattern, '</span>');
 
   return `<style>${style}</style>${component}`;
 };

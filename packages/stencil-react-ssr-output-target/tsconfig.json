@@ -6,23 +6,20 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "outDir": "./dist/esm/lib",
-    "declarationDir": "./dist/types/lib",
     "lib": [
       "dom",
       "es2015"
     ],
-    "module": "esnext",
+    "module": "CommonJS",
     "moduleResolution": "node",
-    "target": "es2015",
+    "target": "ESNext",
     "skipLibCheck": true,
-    "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
+    "declaration": false,
     "esModuleInterop": true
   },
   "include": [
-    "lib",
+    "index.ts"
   ],
   "exclude": [
     "node_modules"

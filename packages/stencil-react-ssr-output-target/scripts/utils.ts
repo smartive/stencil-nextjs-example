@@ -65,7 +65,7 @@ const stripTemplateComments = (source: string) =>
     .replace(/\/\* eslint-disable import\/no-unresolved \*\/\n/g, '')
     .replace(/\/\* eslint-disable import\/no-unused-vars \*\/\n/g, '');
 
-const compileTemplate = (
+export const compileTemplate = (
   templateFilename: string,
   {
     elementName,
@@ -93,20 +93,12 @@ const compileTemplate = (
     .replace(/__DEFINE_CUSTOM_ELEMENT_FUNCTION__/g, defineCustomElementFunction)
     .replace(/__IMPORT_PATH__/g, importPath)
     .replace(/__CUSTOM_EVENTS__/g, events)
+    .replace(/__ELEMENT_TAG_PREFIX__/g, elementName.split('-')[0])
     .replace(/__PASCAL_CASE_ELEMENT_NAME__/g, toPascalCase(elementName))
     .replace(/__ELEMENT_NAME__/g, elementName);
 
   return stripTemplateComments(compiled);
 };
-
-export const toModuleFile = (
-  defineCustomElementFunction: string,
-  importPath: string,
-  elementName: string,
-  customEvents: string[] = [],
-) => compileTemplate('component.ts', { elementName, defineCustomElementFunction, importPath, customEvents });
-
-export const toServerOnlyModuleFile = (elementName: string) => compileTemplate('component.server-only.ts', { elementName });
 
 const toElementTypeDeclaration = (
   elementName: string,
@@ -132,7 +124,7 @@ export const toTypesFile = (
   const elementTypes = elements.map((element) => toElementTypeDeclaration(element, customEvents[element]));
   const imports = [
     ...enums,
-    ...elements.map((element) => `${toPascalCase(element)}CustomEvent`).filter((event) => elementTypes.includes(event)),
+    ...elements.map((element) => customEvents[element] && `${toPascalCase(element)}CustomEvent`).filter(Boolean),
   ];
   const exports = elements
     .map(toPascalCase)

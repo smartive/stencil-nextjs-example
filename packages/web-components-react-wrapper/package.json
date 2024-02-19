@@ -1,7 +1,6 @@
 {
   "name": "abc-web-components-react-wrapper",
   "version": "0.0.0-development",
-  "private": true,
   "author": "smartive AG <hello@smartive.ch>",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -32,6 +31,7 @@
     "linkedom": "0.16.8",
     "@stencil/core": "github:smartive/stencil-patched#v4.12.2"
   },
+  "private": true,
   "devDependencies": {
     "abc-web-components": "0.0.0-development"
   },

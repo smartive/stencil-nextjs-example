@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
   entry: ["./src/components.tsx"],
   mode: "production",
@@ -6,8 +9,14 @@ module.exports = {
     chunkFilename: "[name].js",
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     path: require("path").resolve(__dirname, "..", "build"),
-    publicPath: process.env.OUTPUT_PUBLIC_PATH || "/",
+    publicPath: process.env.OUTPUT_PUBLIC_PATH ?? "/cdn-build/",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "CDN Example",
+      template: "example.html",
+    }),
+  ],
   resolve: {
     modules: ["node_modules"],
     extensions: [".ts", ".tsx", ".js", ".json"],

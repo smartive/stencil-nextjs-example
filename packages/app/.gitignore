@@ -14,6 +14,8 @@
 
 # production
 /build
+/public/storybook
+/public/cdn-build
 
 # misc
 .DS_Store

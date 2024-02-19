@@ -1,5 +1,5 @@
 import React, { ComponentProps } from "react";
-import * as ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
 export const ComponentLoader = {
   render: (
@@ -11,12 +11,10 @@ export const ComponentLoader = {
       document
         .querySelectorAll(selectorOrNode)
         .forEach((node) =>
-          ReactDOM.createRoot(node).render(<CustomComponent {...props} />),
+          createRoot(node).render(<CustomComponent {...props} />),
         );
     } else {
-      ReactDOM.createRoot(selectorOrNode).render(
-        <CustomComponent {...props} />,
-      );
+      createRoot(selectorOrNode).render(<CustomComponent {...props} />);
     }
   },
 };

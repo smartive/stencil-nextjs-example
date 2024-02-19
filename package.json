@@ -33,8 +33,7 @@
     "build:cdn-build": "lerna run build --skip-nx-cache --scope=abc-cdn-build",
     "build:docs": "lerna run build --skip-nx-cache --scope=abc-docs",
     "build:app": "lerna run build --skip-nx-cache --scope=abc-app",
-    "start:app": "lerna run start --skip-nx-cache --scope=abc-app",
-    "publish:stencil-react-ssr-output-target": "lerna version --conventional-commits --conventional-graduate=* --yes && lerna publish --yes"
+    "start:app": "lerna run start --skip-nx-cache --scope=abc-app"
   },
   "engines": {
     "node": "^20.0.0",

@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
   extends: ['plugin:@stencil-community/recommended', 'prettier', '@smartive/eslint-config'],
   rules: {
+    '@stencil-community/ban-exported-const-enums': 0,
     '@stencil-community/decorators-style': [
       2,
       {

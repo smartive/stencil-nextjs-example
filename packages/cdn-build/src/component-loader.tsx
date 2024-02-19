@@ -2,7 +2,7 @@ import React, { ComponentProps } from "react";
 import * as ReactDOM from "react-dom/client";
 
 export const ComponentLoader = {
-  render: async (
+  render: (
     CustomComponent: React.FC | React.ComponentClass,
     selectorOrNode: string | Element,
     props: ComponentProps<React.FC | React.ComponentClass>,

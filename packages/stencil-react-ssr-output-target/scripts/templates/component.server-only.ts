@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved */
+/* eslint-disable */
 import React from 'react';
 // @ts-expect-error - leads only to error in template file
 import { renderToString } from './hydrate';

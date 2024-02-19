@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 declare const __PASCAL_CASE_ELEMENT_NAME__: React.ForwardRefExoticComponent<
   React.PropsWithChildren<
     Partial<

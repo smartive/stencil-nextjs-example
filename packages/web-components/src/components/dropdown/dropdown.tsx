@@ -109,7 +109,7 @@ export class Dropdown {
 
     return (
       <Host
-        onItemClick={({ detail: { item } }) => {
+        onItemClick={({ detail: { item } }: { detail: { item: string } }) => {
           this.select(item);
         }}
       >
@@ -119,7 +119,7 @@ export class Dropdown {
           label={this.label}
           placeholder={typeof itemLabel === 'string'}
           open={this.open}
-          text={itemLabel || this.text}
+          text={itemLabel ?? this.text}
         >
           <div class="dropdown__information-wrapper">
             <div>
@@ -134,6 +134,6 @@ export class Dropdown {
           </div>
         </abc-dropdown-button>
       </Host>
-    );
+    ) as JSX.Element;
   }
 }

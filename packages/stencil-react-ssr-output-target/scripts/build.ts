@@ -5,7 +5,7 @@ import { format, join, parse } from 'node:path';
 import { exit } from 'node:process';
 import { compileTemplate, parseComponentsEvents, parseEnums, printProgress, toIndexFile, toTypesFile } from './utils';
 
-const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
+const createReactWrapperModules = async ({ entryPoints, distRoot }: { entryPoints: string[]; distRoot: string }) => {
   if (!entryPoints?.length) {
     throw new Error('No entry points found');
   }
@@ -20,7 +20,7 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
 
     let i = 0;
     for (const importPath of entryPoints) {
-      const component = await import(importPath);
+      const component = (await import(importPath)) as Record<string, Record<string, string>>;
 
       let defineFunctionName = 'd';
       if (component?.d) {
@@ -48,7 +48,7 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
           elementName,
           defineCustomElementFunction: defineFunctionName,
           importPath: `./components/${name}.js`,
-          customEvents: componentsEvents[elementName]?.events,
+          customEvents: elementName in componentsEvents ? componentsEvents[elementName].events : undefined,
         }),
       );
 
@@ -73,7 +73,7 @@ const createReactWrapperModules = async ({ entryPoints, distRoot }) => {
   console.info('writing modules completed!');
 };
 
-const { distRoot, componentsPrefix } = program
+const { distRoot, componentsPrefix }: { distRoot: string; componentsPrefix: string } = program
   .option('--dist-root <value>')
   .option('--components-prefix <value>')
   .parse()

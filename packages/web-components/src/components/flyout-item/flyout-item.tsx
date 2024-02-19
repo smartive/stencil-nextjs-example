@@ -18,8 +18,8 @@ export class FlyoutItem {
   @Prop({ reflect: true })
   item!: string;
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   @Method()
-  // eslint-disable-next-line @stencil-community/async-methods
   async focusItem() {
     this.buttonEl?.focus();
   }
@@ -38,6 +38,6 @@ export class FlyoutItem {
       >
         {this.label}
       </button>
-    );
+    ) as JSX.Element;
   }
 }

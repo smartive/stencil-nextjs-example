@@ -24,7 +24,7 @@ export class AbcIconChevronDown {
           >
             <path stroke-width="1.5" d="m4 6 4 4 4-4" />
           </svg>
-        );
+        ) as JSX.Element;
       case ICON_SIZES.SM:
         return (
           <svg
@@ -37,7 +37,7 @@ export class AbcIconChevronDown {
           >
             <path stroke-width="2" d="m6 9 6 6 6-6" />
           </svg>
-        );
+        ) as JSX.Element;
       case ICON_SIZES.MD:
         return (
           <svg
@@ -50,7 +50,7 @@ export class AbcIconChevronDown {
           >
             <path stroke-width="2.3" d="m8 12 8 8 8-8" />
           </svg>
-        );
+        ) as JSX.Element;
       case ICON_SIZES.LG:
         return (
           <svg
@@ -63,7 +63,7 @@ export class AbcIconChevronDown {
           >
             <path stroke-width="2.5" d="m10 15 10 10 10-10" />
           </svg>
-        );
+        ) as JSX.Element;
       case ICON_SIZES.XL:
         return (
           <svg
@@ -76,7 +76,7 @@ export class AbcIconChevronDown {
           >
             <path stroke-width="3" d="m12 18 12 12 12-12" />
           </svg>
-        );
+        ) as JSX.Element;
       case ICON_SIZES.XXL:
         return (
           <svg
@@ -89,7 +89,7 @@ export class AbcIconChevronDown {
           >
             <path stroke-width="3.5" d="m14 21 14 14 14-14" />
           </svg>
-        );
+        ) as JSX.Element;
     }
   }
 }

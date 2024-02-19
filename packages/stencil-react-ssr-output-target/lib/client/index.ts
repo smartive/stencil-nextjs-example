@@ -14,7 +14,7 @@ export const WithRSCFallback: FC<PropsWithChildren<{ rsc: ReactNode }>> = ({ rsc
 // > Attempted to call the default export of ... from the server but it's on the client.
 // > It's not possible to invoke a client function from the server, it can only be rendered
 // > as a Component or passed to props of a Client Component.
-export function AbcWrapper({ children }) {
+export function AbcWrapper({ children }: PropsWithChildren) {
   if (typeof window === 'undefined') {
     // eslint-disable-next-line import/no-unresolved
     return import('./render.js').then(({ render }) => render(resolve(children)));
@@ -23,8 +23,9 @@ export function AbcWrapper({ children }) {
   return children;
 }
 
-function resolve(children, result = []) {
-  const nodes = [].concat(children ?? []);
+/* eslint-disable */
+function resolve(children: any, result: any[] = []) {
+  const nodes: any[] = [].concat(children ?? []);
 
   for (const node of nodes) {
     if (typeof node === 'string') {

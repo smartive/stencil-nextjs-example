@@ -6,10 +6,12 @@
   "license": "MIT",
   "homepage": "https://github.com/smartive/stencil-nextjs-example/tree/main/packages/stencil-react-ssr-output-target#readme",
   "main": "index.js",
+  "types": "index.d.ts",
   "files": [
     "scripts",
     "lib",
     "index.ts",
+    "index.d.ts",
     "index.js",
     "index.js.map",
     "tsconfig.plugin.json"

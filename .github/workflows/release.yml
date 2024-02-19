@@ -1,4 +1,4 @@
-name: Release npm package @smartive/stencil-react-ssr-output-target
+name: Release
 
 on:
   push:
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   release:
-    name: Release
+    name: Release @smartive/stencil-react-ssr-output-target
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -28,6 +28,8 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         with:
           dry_run: true
+          branches: |
+            ['main']
           working_directory: ./packages/stencil-react-ssr-output-target
           extra_plugins: |
             @semantic-release/changelog@6

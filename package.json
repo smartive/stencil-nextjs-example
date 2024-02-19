@@ -24,15 +24,17 @@
   ],
   "scripts": {
     "lint": "lerna run lint",
-    "web-components:build": "lerna run build --scope=abc-web-components",
-    "cdn-build:build": "lerna run build --skip-nx-cache --scope=abc-cdn-build",
-    "cdn-build:dev": "lerna run dev --skip-nx-cache --scope=abc-cdn-build",
-    "docs:build": "lerna run build --skip-nx-cache --scope=abc-docs",
-    "docs:dev": "lerna run dev --skip-nx-cache --scope=abc-docs",
-    "app:build": "lerna run build --skip-nx-cache --scope=abc-app",
-    "app:dev": "lerna run dev --skip-nx-cache --scope=abc-app",
-    "app:start": "lerna run start --skip-nx-cache --scope=abc-app",
-    "app:clean": "del-cli --force ./packages/app/.next"
+    "clean:app": "del-cli --force ./packages/app/.next",
+    "dev:cdn-build": "lerna run dev --skip-nx-cache --scope=abc-cdn-build",
+    "dev:docs": "lerna run dev --skip-nx-cache --scope=abc-docs",
+    "dev:app": "lerna run dev --skip-nx-cache --scope=abc-app",
+    "build:stencil-react-ssr-output-target": "lerna run build --scope=@smartive/stencil-react-ssr-output-target",
+    "build:web-components": "lerna run build --scope=abc-web-components",
+    "build:cdn-build": "lerna run build --skip-nx-cache --scope=abc-cdn-build",
+    "build:docs": "lerna run build --skip-nx-cache --scope=abc-docs",
+    "build:app": "lerna run build --skip-nx-cache --scope=abc-app",
+    "start:app": "lerna run start --skip-nx-cache --scope=abc-app",
+    "publish:stencil-react-ssr-output-target": "lerna publish --yes"
   },
   "engines": {
     "node": "^20.0.0",

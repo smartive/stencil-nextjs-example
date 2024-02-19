@@ -17,13 +17,18 @@ jobs:
     strategy:
       fail-fast: true
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build:stencil-react-ssr-output-target
+      - name: Install Dependencies and Build
+        run: |
+          cd packages/stencil-react-ssr-output-target
+          npm i
+          npm run build
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         with:

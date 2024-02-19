@@ -22,3 +22,6 @@ jobs:
       - run: npm ci
       - run: npm run build:stencil-react-ssr-output-target
       - run: npm run publish:stencil-react-ssr-output-target
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

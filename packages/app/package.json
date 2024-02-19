@@ -19,7 +19,7 @@
   "scripts": {
     "predev": "next telemetry disable",
     "dev": "next dev",
-    "prebuild": "next telemetry disable",
+    "prebuild": "next telemetry disable &> /dev/null && recursive-copy --overwrite ../docs/storybook-static public/storybook &> /dev/null && recursive-copy --overwrite ../cdn-build/build public/cdn-build &> /dev/null",
     "build": "next build",
     "prestart": "next telemetry disable",
     "start": "next start",
@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@webcomponents/template-shadowroot": "^0.2.1",
+    "abc-cdn-build": "^0.0.0",
+    "abc-docs": "^0.0.0",
     "abc-web-components-react-wrapper": "^0.0.0",
     "next": "14.1.0",
     "react": "^18.0.0",
@@ -42,6 +44,7 @@
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "9.1.0",
+    "recursive-copy-cli": "1.0.20",
     "prettier": "3.2.5",
     "typescript": "5.3.3"
   },

@@ -1,4 +1,4 @@
-import { Component, Element, Event, EventEmitter, Host, Prop, Watch, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Host, JSX, Prop, Watch, h } from '@stencil/core';
 
 const isHTMLAbcAccordionItemElement = (element: string | HTMLAbcAccordionElement): element is HTMLAbcAccordionElement => {
   if (typeof element === 'object' && typeof element.item === 'string') {
@@ -57,7 +57,7 @@ export class AccordionContainer {
   render() {
     return (
       <Host
-        onAccordionClick={({ detail: { item, open } }) => {
+        onAccordionClick={({ detail: { item, open } }: { detail: { open: boolean; item?: string } }) => {
           if (open) {
             this.select(item);
           }
@@ -65,6 +65,6 @@ export class AccordionContainer {
       >
         <slot name="accordions"></slot>
       </Host>
-    );
+    ) as JSX.Element;
   }
 }

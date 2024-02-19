@@ -69,6 +69,6 @@ export class DropdownButton {
         </div>
         <slot></slot>
       </label>
-    );
+    ) as JSX.Element;
   }
 }

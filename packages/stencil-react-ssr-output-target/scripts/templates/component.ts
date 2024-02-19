@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved */
+/* eslint-disable */
 'use client';
 
 import React, { useImperativeHandle, useRef } from 'react';

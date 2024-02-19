@@ -81,7 +81,7 @@ export class Flyout {
   render() {
     return (
       <Host
-        onItemClick={({ detail: { item } }) => {
+        onItemClick={({ detail: { item } }: { detail: { item: string } }) => {
           this.select(item);
         }}
       >
@@ -89,6 +89,6 @@ export class Flyout {
           <slot></slot>
         </div>
       </Host>
-    );
+    ) as JSX.Element;
   }
 }

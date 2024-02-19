@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable */
+
 import type React from 'react';
 // @ts-expect-error - leads only to error in template file
 import type { Components, __IMPORTS_ } from './components';

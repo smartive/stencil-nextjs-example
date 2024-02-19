@@ -19,10 +19,10 @@ const toWebComponentTagName = (eventMapName: string) =>
   toKebabCase(eventMapName.replace('HTML', '').replace('ElementEventMap', ''));
 
 const isElementEventMap = (node: Statement): node is TSInterfaceDeclaration =>
-  node.type === 'TSInterfaceDeclaration' && node.id['name'].endsWith('ElementEventMap');
+  node.type === 'TSInterfaceDeclaration' && node.id.name.endsWith('ElementEventMap');
 
 const isGlobalTSModuleDeclaration = (node: Statement): node is TSModuleDeclaration =>
-  node.type === 'TSModuleDeclaration' && node.id['name'] === 'global';
+  node.type === 'TSModuleDeclaration' && 'name' in node.id && node.id.name === 'global';
 
 const isTSPropertySignature = (node: TSTypeElement): node is TSPropertySignature => node.type === 'TSPropertySignature';
 
@@ -43,11 +43,14 @@ export const parseComponentsEvents = (source: string) => {
     }));
 
     for (const { name, body } of statements) {
-      events[toWebComponentTagName(name)] = { name, events: body.map(({ key }) => key['value']) };
+      events[toWebComponentTagName(name)] = {
+        name,
+        events: body.map(({ key }) => ('value' in key ? key.value : undefined)).filter(Boolean) as string[],
+      };
     }
 
     return events;
-  }, {});
+  }, {}) as Record<string, { name: string; events: string[] }>;
 };
 
 export const parseEnums = (source: string) =>
@@ -62,8 +65,7 @@ export const parseEnums = (source: string) =>
 const stripTemplateComments = (source: string) =>
   source
     .replace(/\/\/ @ts-expect-error - leads only to error in template file\n/g, '')
-    .replace(/\/\* eslint-disable import\/no-unresolved \*\/\n/g, '')
-    .replace(/\/\* eslint-disable import\/no-unused-vars \*\/\n/g, '');
+    .replace(/\/\* eslint-disable \*\/\n/g, '');
 
 export const compileTemplate = (
   templateFilename: string,

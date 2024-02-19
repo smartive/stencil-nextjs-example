@@ -79,7 +79,7 @@ export const NATIVE_GLOBAL_EVENTS: (keyof GlobalEventHandlersEventMap)[] = [
   'wheel',
 ];
 
-export const omitEventCallbacks = (customEvents: string[], props: unknown) => {
+export const omitEventCallbacks = (customEvents: string[], props: Record<string, unknown>) => {
   const eventCallbacks = [...customEvents, ...NATIVE_GLOBAL_EVENTS].map((event) => toCallbackName(event));
 
   return Object.fromEntries(Object.entries(props).filter(([key]) => !eventCallbacks.includes(key)));
@@ -91,7 +91,11 @@ export const toPascalCase = (kebabText: string) => kebabText.replace(/(^\w|-\w)/
 
 const toCallbackName = (name: string) => `on${toPascalCase(name)}`;
 
-export const useEventListeners = (ref: RefObject<HTMLElement>, customEvents: string[], props: unknown) => {
+export const useEventListeners = (
+  ref: RefObject<HTMLElement>,
+  customEvents: string[],
+  props: Record<string, EventListenerOrEventListenerObject>,
+) => {
   const events = [...customEvents, ...NATIVE_GLOBAL_EVENTS];
   useEffect(() => {
     const { current } = ref;
@@ -117,12 +121,12 @@ export const useEventListeners = (ref: RefObject<HTMLElement>, customEvents: str
   }, [ref]);
 };
 
-export const toNativeAttributeName = (name: string, value: unknown) => {
-  if (REACT_PROP_TO_ATTRIBUTE_NAME_MAP[name]) {
-    return REACT_PROP_TO_ATTRIBUTE_NAME_MAP[name];
+export const toNativeAttributeName = (name: string, value: unknown): string | undefined => {
+  if (name in REACT_PROP_TO_ATTRIBUTE_NAME_MAP) {
+    return REACT_PROP_TO_ATTRIBUTE_NAME_MAP[name] as string;
   }
 
-  if (typeof value == 'undefined' || (typeof value === 'boolean' && !value)) {
+  if (typeof value === 'undefined' || value === false) {
     return undefined;
   }
 

@@ -59,6 +59,6 @@ export class Accordion {
           <slot name="details" />
         </p>
       </details>
-    );
+    ) as JSX.Element;
   }
 }

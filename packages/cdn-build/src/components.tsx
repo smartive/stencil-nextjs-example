@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 type ComponentsImport = (
   selector: string,
   props: ComponentProps<React.FC | React.ComponentClass>,
-) => void;
+) => Promise<void>;
 type Components = { [key: string]: Components | ComponentsImport };
 
 interface Window {
@@ -20,7 +20,7 @@ const LoadComponent = async (
   const { ComponentLoader } = await import(
     /* webpackChunkName: 'component-loader' */ "./component-loader"
   );
-  await ComponentLoader.render(el, selectorOrNode, props);
+  ComponentLoader.render(el, selectorOrNode, props);
 };
 
 (window as unknown as Window).abc = {

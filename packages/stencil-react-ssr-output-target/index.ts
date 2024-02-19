@@ -1,6 +1,7 @@
 import { createCompiler } from '@stencil/core/compiler';
 import type { OutputTargetCustom } from '@stencil/core/internal';
 import * as esbuild from 'esbuild';
+import assert from 'node:assert';
 import { spawnSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -24,12 +25,22 @@ export const reactSSROutputTarget = (
 ): OutputTargetCustom => ({
   type: 'custom',
   name: 'react-ssr-library',
-  async generator(stencilConfig, _, buildContext) {
+  async generator(
+    stencilConfig,
+    _,
+    buildContext: {
+      config: { flags: { debug: boolean } };
+      createTimeSpan: (name: string, silent?: boolean) => { finish: (message: string) => void };
+    },
+  ) {
     const { rootDir, fsNamespace } = stencilConfig;
+    assert(rootDir, 'rootDir is not defined');
+    assert(fsNamespace, 'fsNamespace is not defined');
+
     const { debug } = buildContext.config.flags;
     const timespan = buildContext.createTimeSpan(`generate react started`, true);
 
-    const outputDir = path.join(rootDir, config.outPath);
+    const outputDir = path.join(rootDir, config.outPath ?? '');
     const distDir = path.join(outputDir, 'dist');
     const esmDir = path.join(distDir, 'esm');
     const typesDir = path.join(distDir, 'types');
@@ -56,7 +67,7 @@ export const reactSSROutputTarget = (
         '--dist-root',
         esmDir,
         '--components-prefix',
-        fsNamespace.split('-').shift(),
+        fsNamespace.split('-').shift() ?? '',
       ],
       debug,
     );
@@ -83,7 +94,7 @@ export const reactSSROutputTarget = (
       outdir: path.join(distDir, 'cjs'),
     });
 
-    createPackageJson(outputDir, config.type === 'server-only', config.package || {});
+    createPackageJson(outputDir, config.type === 'server-only', config.package ?? {});
 
     timespan.finish(`generate react finished`);
   },
@@ -102,6 +113,8 @@ type PackageJsonConfig = {
   author?: string;
   license?: string;
 };
+type PackageJson = PackageJsonConfig & { dependencies: Record<string, string> };
+
 const createPackageJson = (
   outputDir: string,
   patchStencil = false,
@@ -109,10 +122,10 @@ const createPackageJson = (
 ) => {
   const outputPackageJsonPath = path.join(outputDir, 'package.json');
   const require = createRequire(__filename);
-  const templatePackageJson = require(path.join(__dirname, 'scripts', 'templates', 'package.json'));
+  const templatePackageJson = require(path.join(__dirname, 'scripts', 'templates', 'package.json')) as PackageJson;
 
   if (existsSync(outputPackageJsonPath)) {
-    const currentPackageJson = require(outputPackageJsonPath);
+    const currentPackageJson = require(outputPackageJsonPath) as PackageJson;
     writeFileSync(outputPackageJsonPath, JSON.stringify(Object.assign(templatePackageJson, currentPackageJson), null, 2));
   } else {
     templatePackageJson.name = name;

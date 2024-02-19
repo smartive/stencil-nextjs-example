@@ -1,4 +1,5 @@
 // Original code from https://github.com/luwes/wesc
+/* eslint-disable */
 
 import React from 'react';
 

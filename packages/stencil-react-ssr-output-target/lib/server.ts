@@ -76,7 +76,7 @@ import { parseHTML } from 'linkedom';
     navigator: {},
     addEventListener: function addEventListener() {},
     removeEventListener: function removeEventListener() {},
-    requestAnimationFrame: function requestAnimationFrame(callback) {
+    requestAnimationFrame: function requestAnimationFrame(callback: () => void) {
       callback();
     },
   });

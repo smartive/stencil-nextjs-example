@@ -45,7 +45,7 @@ export class Button {
         <button part="button" class="button" type={this.type} disabled={this.disabled}>
           <slot></slot>
         </button>
-      );
+      ) as JSX.Element;
     }
 
     return (
@@ -59,6 +59,6 @@ export class Button {
       >
         <slot></slot>
       </a>
-    );
+    ) as JSX.Element;
   }
 }

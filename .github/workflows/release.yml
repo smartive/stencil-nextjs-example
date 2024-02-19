@@ -21,6 +21,10 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build:stencil-react-ssr-output-target
+      - name: Configure Git User for Release
+        run: |
+          git config --global user.name "smartive CI"
+          git config --global user.email "it@smartive.ch"
       - run: npm run publish:stencil-react-ssr-output-target
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,7 @@
 name: Release
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
 
@@ -9,7 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  publish:
+    if: github.event.pull_request.merged == true
     strategy:
       fail-fast: true
     name: publish
@@ -21,11 +23,12 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build:stencil-react-ssr-output-target
-      - name: Configure Git User for Release
-        run: |
-          git config --global user.name "smartive CI"
-          git config --global user.email "it@smartive.ch"
-      - run: npm run publish:stencil-react-ssr-output-target
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          git config --global user.name "smartive CI"
+          git config --global user.email "it@smartive.ch"
+          npx lerna version --conventional-commits --conventional-graduate --yes
+          npx lerna publish from-git --yes

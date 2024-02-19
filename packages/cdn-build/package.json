@@ -1,6 +1,6 @@
 {
   "name": "abc-cdn-build",
-  "version": "1.0.0-alpha.0",
+  "version": "0.0.0-development",
   "author": "smartive AG <hello@smartive.ch>",
   "license": "ISC",
   "private": true,
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.22.6",
-    "abc-web-components-react-wrapper": "1.0.0-alpha.0",
+    "abc-web-components-react-wrapper": "0.0.0-development",
     "core-js": "^3.31.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

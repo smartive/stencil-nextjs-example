@@ -1,6 +1,6 @@
 {
   "name": "abc-web-components",
-  "version": "1.0.0-alpha.0",
+  "version": "0.0.0-development",
   "author": "smartive AG <hello@smartive.ch>",
   "license": "ISC",
   "private": true,
@@ -44,7 +44,7 @@
     "eslint-config-prettier": "9.1.0",
     "prettier": "3.2.5",
     "stencil-inline-svg": "1.1.0",
-    "@smartive/stencil-react-ssr-output-target": "1.0.0-alpha.0"
+    "@smartive/stencil-react-ssr-output-target": "0.0.0"
   },
   "nx": {
     "targets": {

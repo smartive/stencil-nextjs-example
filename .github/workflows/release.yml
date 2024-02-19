@@ -1,21 +1,21 @@
-name: Release
+name: Release npm package @smartive/stencil-react-ssr-output-target
+
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
+      - next
 
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  publish:
-    if: github.event.pull_request.merged == true
+  release:
+    name: Release
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-    name: publish
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,12 +23,13 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build:stencil-react-ssr-output-target
-      - name: Release
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          dry_run: true
+          working_directory: ./packages/stencil-react-ssr-output-target
+          extra_plugins: |
+            @semantic-release/changelog@6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          git config --global user.name "smartive CI"
-          git config --global user.email "it@smartive.ch"
-          npx lerna version --conventional-commits --conventional-graduate --yes
-          npx lerna publish from-git --yes

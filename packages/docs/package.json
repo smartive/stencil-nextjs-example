@@ -1,6 +1,6 @@
 {
   "name": "abc-docs",
-  "version": "1.0.0-alpha.0",
+  "version": "0.0.0-development",
   "author": "smartive AG <hello@smartive.ch>",
   "license": "ISC",
   "private": true,
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@webcomponents/template-shadowroot": "^0.2.1",
-    "abc-web-components-react-wrapper": "1.0.0-alpha.0",
+    "abc-web-components-react-wrapper": "0.0.0-development",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

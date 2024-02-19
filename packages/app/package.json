@@ -1,6 +1,6 @@
 {
   "name": "abc-app",
-  "version": "1.0.0-alpha.0",
+  "version": "0.0.0-development",
   "author": "smartive AG <hello@smartive.ch>",
   "license": "ISC",
   "private": true,
@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@webcomponents/template-shadowroot": "^0.2.1",
-    "abc-cdn-build": "1.0.0-alpha.0",
-    "abc-docs": "1.0.0-alpha.0",
-    "abc-web-components-react-wrapper": "1.0.0-alpha.0",
+    "abc-cdn-build": "0.0.0-development",
+    "abc-docs": "0.0.0-development",
+    "abc-web-components-react-wrapper": "0.0.0-development",
     "next": "14.1.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

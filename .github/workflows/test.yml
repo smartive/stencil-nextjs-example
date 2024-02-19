@@ -19,16 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.npm
-            ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+          cache: 'npm'
       - run: npm ci
       - run: npm run build:app
       - run: npm run lint

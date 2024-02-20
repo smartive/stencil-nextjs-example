@@ -2,6 +2,8 @@ name: Release
 
 on:
   push:
+    paths:
+      - 'packages/stencil-react-ssr-output-target/**'
     branches:
       - main
       - next

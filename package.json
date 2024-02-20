@@ -40,8 +40,8 @@
     "npm": "^10.0.0"
   },
   "overrides": {
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0"
+    "@typescript-eslint/eslint-plugin": "7.0.2",
+    "@typescript-eslint/parser": "7.0.2"
   },
   "devDependencies": {
     "del-cli": "^5.1.0",

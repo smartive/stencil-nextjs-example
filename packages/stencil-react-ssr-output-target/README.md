@@ -1,6 +1,6 @@
 # Stencil Output Targets for Next.js SSR
 
-This package exports `reactSSROutputTarget` which is a Stencil output target plugin used to generate server-side rendered (SSR) compatible versions of your Stencil Web Components for integration within React applications like Next.js. This allows you to improve initial page load performance and SEO of your React app.
+This package exports `reactSSROutputTarget`, which is a [Stencil Output Target](https://stenciljs.com/docs/output-targets) plugin. It wraps Stencil components within React components that can be used within the [Next.js App Router](https://nextjs.org/docs/app). This allows you to improve the initial page load performance and SEO of your Next.js app.
 
 ## Usage
 
@@ -23,27 +23,22 @@ export const config: Config = {
 };
 ```
 
-This will generate server-side rendered versions of your Stencil components within the build/ssr directory and create a package.json file with the specified name and version. The wrapper approach is used in this example.
-
 ### Arguments and Defaults
 
-The reactSSROutputTarget function accepts a single argument, a configuration object with the following optional properties:
 
-| Property                                                                          | Type                           | Description                                                                                              | Default                                       |
-| --------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| `outPath`                                                                         | `string`                       | Path to the output directory for generated files.                                                        | `'dist/react-components-ssr'`                 |
-| `type`                                                                            | `'server-only'` or `'wrapper'` | Type of output to generate. `'server-only'` generates standalone Server Components for use with Next.js. |
-| `'wrapper'` generates components wrapped for server-side rendering with linkedom. | `'server-only'`                |
-| `package`                                                                         | `PackageJsonConfig`            | Configuration for the generated `package.json` file.                                                     | see next rows                                 |
-| └ `name`                                                                          | `string`                       | Name of the package.                                                                                     | `'@smartive/stencil-react-ssr-output-target'` |
-| └ `version`                                                                       | `string`                       | Version of the package.                                                                                  | `'0.0.0'`                                     |
-| └ `author`                                                                        | `string`                       | Author of the package.                                                                                   | `'Stencil'`                                   |
-| └ `license`                                                                       | `string`                       | License of the package.                                                                                  | `'ISC'`                                       |
+| Property    | Type                           | Description                                                                                                                                                                                | Default                                       |
+| ----------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
+| `outPath`   | `string`                       | Path to the output directory for generated files.                                                                                                                                          | `'dist/react-components-ssr'`                 |
+| `type`      | `'server-only'` or `'wrapper'` | Type of output to generate.<br><br>`'server-only'` generates React Server Components for use with Next.js app folder.<br>`'wrapper'` generates components which can be used in client components and are server side rendered with [linkedom](https://github.com/WebReflection/linkedom#readme).<br><br>More Information see [Approaches](#approaches) and [Usage of generated Code](#usage-of-generated-code) | `'server-only'`                               |
+| `package`   | `PackageJsonConfig`            | Configuration for the generated `package.json` file.                                                                                                                                       | see next rows                                 |
+| └ `name`    | `string`                       | Name of the package.                                                                                                                                                                       | `'stencil-react-ssr'` |
+| └ `version` | `string`                       | Version of the package.                                                                                                                                                                    | `'0.0.0'`                                     |
+| └ `author`  | `string`                       | Author of the package.                                                                                                                                                                     | `'Stencil React SSR'`                                   |
+| └ `license` | `string`                       | License of the package.                                                                                                                                                                    | `'ISC'`                                       |
 
 ## Usage of generated Code
 
-> [!CAUTION]
-> **Use generated code with caution.**
+> [!CAUTION] > **Use generated code with caution.**
 
 ### `'wrapper'` approach
 

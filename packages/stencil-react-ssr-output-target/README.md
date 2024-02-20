@@ -25,7 +25,6 @@ export const config: Config = {
 
 ### Arguments and Defaults
 
-
 | Property    | Type                           | Description                                                                                                                                                                                | Default                                       |
 | ----------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
 | `outPath`   | `string`                       | Path to the output directory for generated files.                                                                                                                                          | `'dist/react-components-ssr'`                 |
@@ -38,9 +37,14 @@ export const config: Config = {
 
 ## Usage of generated Code
 
-> [!CAUTION] > **Use generated code with caution.**
+> **This package is experimental and not yet tested with all use cases. Use generated code with caution.**
 
-### `'wrapper'` approach
+You can use the generated components in three ways: 
+1. Fully SSR supported React components with client rehydration (`wrapper`)
+2. Prerendered SSR components with client rehydration (`ssr-only`)
+3. Client components only (`wrapper` with `use client`).
+
+### 1. `'wrapper'` approach
 
 1. Add `await import('abc-web-components-react-wrapper/server');` to your root `layout.tsx`. Consider adding a polyfill for [template-shadowroot](https://github.com/webcomponents/template-shadowroot#readme). Consolidate [caniuse](https://caniuse.com/mdn-html_elements_template_shadowrootmode) to determine if the polyfill is necessary.
 1. Create a new `'use client'` component
@@ -49,7 +53,9 @@ export const config: Config = {
 ```TSX
 'use client';
 
-// ...
+import { AbcWrapper } from 'abc-web-components-react-wrapper/client';
+import { AbcButton } from 'abc-web-components-react-wrapper';
+import { FC, PropsWithChildren } from 'react';
 
 export const ButtonWithWrapper: FC<PropsWithChildren> = ({ children }) => (
   <AbcWrapper>
@@ -62,7 +68,7 @@ export const ButtonWithWrapper: FC<PropsWithChildren> = ({ children }) => (
 
 1. Use your component in `page.tsx`
 
-### `'server-only'` approach
+### 2. `'server-only'` approach
 
 This approach is a little more complicated since it uses the React Server Component approach which allows to run async code server side but not client side. Furthermore it relies on the possability to pass client components into server components as children and vice versa.
 
@@ -70,7 +76,9 @@ This approach is a little more complicated since it uses the React Server Compon
    RSC:
 
 ```TSX
-// ...
+import { AbcButtonServerOnly } from 'abc-web-components-react-wrapper';
+import { FC, PropsWithChildren } from 'react';
+import { ButtonWithRSC } from './button-with-rsc';
 
 export const ButtonRSC: FC<PropsWithChildren> = ({ children }) => (
   <ButtonWithRSC rsc={<AbcButtonServerOnly>{children}</AbcButtonServerOnly>}>{children}</ButtonWithRSC>
@@ -82,7 +90,11 @@ Client:
 ```TSX
 'use client';
 
-// ...
+import { AbcButton } from 'abc-web-components-react-wrapper';
+import { WithRSCFallback } from 'abc-web-components-react-wrapper/client';
+import { ComponentProps, FC, PropsWithChildren } from 'react';
+
+type Props = PropsWithChildren<ComponentProps<typeof WithRSCFallback>>;
 
 export const ButtonWithRSC: FC<Props> = ({ rsc, children }) => (
   <WithRSCFallback rsc={rsc}>
@@ -96,7 +108,7 @@ export const ButtonWithRSC: FC<Props> = ({ rsc, children }) => (
 
 1. Use the `ButtonRSC` component in `page.tsx`
 
-### `'use client'` approach
+### 3. `'use client'` approach
 
 1. Create a new `'use client'` component
 1. Use generated React Web Component:
@@ -104,7 +116,8 @@ export const ButtonWithRSC: FC<Props> = ({ rsc, children }) => (
 ```TSX
 'use client';
 
-// ...
+import { AbcButton } from 'abc-web-components-react-wrapper';
+import { FC, PropsWithChildren } from 'react';
 
 export const ButtonWithWrapper: FC<PropsWithChildren> = ({ children }) => (
   <AbcButton variant="primary" size="md" as="button" onClick={(event) => console.info(event)}>
@@ -158,7 +171,7 @@ Always prioritize security and sanitize any user input before using it within We
 | **Approach**              | **Advantages**                                                                                                                                                                                                                                                                                                                                                                  | **Disadvantages**                                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`'wrapper'`**           | <ul> <li> Isolates components for modularity and CSS control. </li> <li> Maintains SEO benefits with pre-rendered content. </li> <li> Prevents layout shifts for a seamless experience. </li> <li> Simple integration compared to `'server-only'`. </li> <li> Functionally remains after client-side hydration. </li> <li> Avoids CSS conflicts with global styles. </li> </ul> | <ul> <li> Content rendered on request (not pre-rendered). </li> <li> Custom server-side rendering implementation. </li> <li> Potential memory issues in constrained environments. </li> </ul>                                                                                                                                                                                                  |
-| **`'server-only'`**       | <ul> <li> Leverages built-in Stencil rendering for speed. </li> <li> Pre-rendered content for SEO and fast display. </li> <li> No layout shifts for a smooth user experience. </li> </ul>                                                                                                                                                                                       | <ul> <li> Potential XSS risk with dynamic content.</li> <li> Complex setup with React server components. </li> <li> Increases bundle size with redundant CSS. </li> <li> Limited user input (text only). </li> <li> Memory issues with large component counts. </li> <li> Client-side re-render with possible layout shift. </li> <li> Global CSS conflicts with component styles. </li> </ul> |
+| **`'server-only'`**       | <ul> <li> Leverages built-in Stencil rendering for speed. </li> <li> Pre-rendered content for SEO and fast display. </li> </ul>                                                                                                                                                                                       | <ul> <li> Potential XSS risk with dynamic content.</li> <li> Complex setup with React server components. </li> <li> Increases bundle size with redundant CSS. </li> <li> Limited user input (text only). </li> <li> Memory issues with large component counts. </li> <li> Client-side re-render with possible layout shift. </li> <li> Global CSS conflicts with component styles. </li> </ul> |
 | **Client-Side Rendering** | <ul> <li> Simple implementation with minimal code. </li> <li> Delivers fastest initial load times. </li> </ul>                                                                                                                                                                                                                                                                  | <ul> <li> Triggers layout shifts during initial rendering. </li> <li> Content invisible to search engines (SEO impact). </li> </ul>                                                                                                                                                                                                                                                            |
 
 ### Choosing the right approach

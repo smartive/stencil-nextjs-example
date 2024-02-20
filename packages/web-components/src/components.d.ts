@@ -61,6 +61,13 @@ export namespace Components {
     interface AbcIconChevronDown {
         "size": ICON_SIZES;
     }
+    interface AbcTodoInput {
+    }
+    interface AbcTodoItem {
+        "checked": boolean;
+        "index": number;
+        "text": string;
+    }
 }
 export interface AbcAccordionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -85,6 +92,14 @@ export interface AbcFlyoutCustomEvent<T> extends CustomEvent<T> {
 export interface AbcFlyoutItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLAbcFlyoutItemElement;
+}
+export interface AbcTodoInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAbcTodoInputElement;
+}
+export interface AbcTodoItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAbcTodoItemElement;
 }
 declare global {
     interface HTMLAbcAccordionElementEventMap {
@@ -203,6 +218,41 @@ declare global {
         prototype: HTMLAbcIconChevronDownElement;
         new (): HTMLAbcIconChevronDownElement;
     };
+    interface HTMLAbcTodoInputElementEventMap {
+        "todoInputSubmit": string;
+    }
+    interface HTMLAbcTodoInputElement extends Components.AbcTodoInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcTodoInputElementEventMap>(type: K, listener: (this: HTMLAbcTodoInputElement, ev: AbcTodoInputCustomEvent<HTMLAbcTodoInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcTodoInputElementEventMap>(type: K, listener: (this: HTMLAbcTodoInputElement, ev: AbcTodoInputCustomEvent<HTMLAbcTodoInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLAbcTodoInputElement: {
+        prototype: HTMLAbcTodoInputElement;
+        new (): HTMLAbcTodoInputElement;
+    };
+    interface HTMLAbcTodoItemElementEventMap {
+        "todoItemChecked": number;
+        "todoItemRemove": number;
+    }
+    interface HTMLAbcTodoItemElement extends Components.AbcTodoItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAbcTodoItemElementEventMap>(type: K, listener: (this: HTMLAbcTodoItemElement, ev: AbcTodoItemCustomEvent<HTMLAbcTodoItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAbcTodoItemElementEventMap>(type: K, listener: (this: HTMLAbcTodoItemElement, ev: AbcTodoItemCustomEvent<HTMLAbcTodoItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLAbcTodoItemElement: {
+        prototype: HTMLAbcTodoItemElement;
+        new (): HTMLAbcTodoItemElement;
+    };
     interface HTMLElementTagNameMap {
         "abc-accordion": HTMLAbcAccordionElement;
         "abc-accordion-group": HTMLAbcAccordionGroupElement;
@@ -212,6 +262,8 @@ declare global {
         "abc-flyout": HTMLAbcFlyoutElement;
         "abc-flyout-item": HTMLAbcFlyoutItemElement;
         "abc-icon-chevron-down": HTMLAbcIconChevronDownElement;
+        "abc-todo-input": HTMLAbcTodoInputElement;
+        "abc-todo-item": HTMLAbcTodoItemElement;
     }
 }
 declare namespace LocalJSX {
@@ -271,6 +323,16 @@ declare namespace LocalJSX {
     interface AbcIconChevronDown {
         "size"?: ICON_SIZES;
     }
+    interface AbcTodoInput {
+        "onTodoInputSubmit"?: (event: AbcTodoInputCustomEvent<string>) => void;
+    }
+    interface AbcTodoItem {
+        "checked"?: boolean;
+        "index"?: number;
+        "onTodoItemChecked"?: (event: AbcTodoItemCustomEvent<number>) => void;
+        "onTodoItemRemove"?: (event: AbcTodoItemCustomEvent<number>) => void;
+        "text"?: string;
+    }
     interface IntrinsicElements {
         "abc-accordion": AbcAccordion;
         "abc-accordion-group": AbcAccordionGroup;
@@ -280,6 +342,8 @@ declare namespace LocalJSX {
         "abc-flyout": AbcFlyout;
         "abc-flyout-item": AbcFlyoutItem;
         "abc-icon-chevron-down": AbcIconChevronDown;
+        "abc-todo-input": AbcTodoInput;
+        "abc-todo-item": AbcTodoItem;
     }
 }
 export { LocalJSX as JSX };
@@ -294,6 +358,8 @@ declare module "@stencil/core" {
             "abc-flyout": LocalJSX.AbcFlyout & JSXBase.HTMLAttributes<HTMLAbcFlyoutElement>;
             "abc-flyout-item": LocalJSX.AbcFlyoutItem & JSXBase.HTMLAttributes<HTMLAbcFlyoutItemElement>;
             "abc-icon-chevron-down": LocalJSX.AbcIconChevronDown & JSXBase.HTMLAttributes<HTMLAbcIconChevronDownElement>;
+            "abc-todo-input": LocalJSX.AbcTodoInput & JSXBase.HTMLAttributes<HTMLAbcTodoInputElement>;
+            "abc-todo-item": LocalJSX.AbcTodoItem & JSXBase.HTMLAttributes<HTMLAbcTodoItemElement>;
         }
     }
 }

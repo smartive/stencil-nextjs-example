@@ -7,10 +7,13 @@ import { ButtonWithWrapper } from '@/components/button/button-with-wrapper';
 import { DropdownClientOnly } from '@/components/dropdown/dropdown-client-only';
 import { DropdownRSC } from '@/components/dropdown/dropdown-rsc';
 import { DropdownWithWrapper } from '@/components/dropdown/dropdown-with-wrapper';
+import { FC } from 'react';
+import { Navigation } from './navigation';
 import { Section } from './section';
 
-const Page = () => (
+const Page: FC = () => (
   <main style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <Navigation />
     <Section
       title="Buttons"
       variants={[

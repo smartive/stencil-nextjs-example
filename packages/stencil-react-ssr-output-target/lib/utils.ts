@@ -118,7 +118,7 @@ export const useEventListeners = (
         }
       }
     };
-  }, [ref]);
+  }, [ref, props, customEvents]);
 };
 
 export const toNativeAttributeName = (name: string, value: unknown): string | undefined => {

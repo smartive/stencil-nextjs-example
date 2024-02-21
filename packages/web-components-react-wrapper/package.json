@@ -29,7 +29,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "linkedom": "0.16.8",
-    "@stencil/core": "github:smartive/stencil-patched#v4.12.2"
+    "@stencil/core": "github:smartive/stencil-patched#v4.12.3"
   },
   "private": true,
   "devDependencies": {

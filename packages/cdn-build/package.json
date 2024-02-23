@@ -54,7 +54,7 @@
     "babel-plugin-jsx-remove-data-test-id": "^3.0.0",
     "babel-plugin-styled-components": "^2.0.7",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "prettier": "3.2.5",
     "typescript": "^5.0.0",
     "typescript-styled-plugin": "^0.18.2",

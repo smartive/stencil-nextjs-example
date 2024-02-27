@@ -29,15 +29,33 @@ export const reactSSROutputTarget = (
     stencilConfig,
     _,
     buildContext: {
-      config: { flags: { debug: boolean } };
+      config: {
+        flags: { debug: boolean };
+        logger: {
+          debug: (message: string) => void;
+          info: (message: string) => void;
+          warn: (message: string) => void;
+          error: (message: string) => void;
+        };
+      };
       createTimeSpan: (name: string, silent?: boolean) => { finish: (message: string) => void };
     },
   ) {
+    const { logger, flags } = buildContext.config;
+
+    if (stencilConfig.watch) {
+      logger.warn(
+        'The react-ssr-library output target does not support watch mode at the moment. Please run `stencil build` instead if you want to generate the React SSR components.',
+      );
+
+      return;
+    }
+
     const { rootDir, fsNamespace } = stencilConfig;
     assert(rootDir, 'rootDir is not defined');
     assert(fsNamespace, 'fsNamespace is not defined');
 
-    const { debug } = buildContext.config.flags;
+    const { debug } = flags;
     const timespan = buildContext.createTimeSpan(`generate react started`, true);
 
     const outputDir = path.join(rootDir, config.outPath ?? '');

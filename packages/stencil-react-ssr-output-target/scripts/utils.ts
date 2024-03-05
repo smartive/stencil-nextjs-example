@@ -135,7 +135,7 @@ export const toTypesFile = (
   const compiled = template
     .replace(/__IMPORTS_/g, imports.join(', '))
     .replace(/__GLOBAL_EVENTS__/g, globalEvents.join(',\n'))
-    .replace(/__ENUMS__/g, enums.join(' | '))
+    .replace(/__ENUMS__/g, (enums.length === 0 ? ['never'] : enums).join(' | '))
     .replace(/__ELEMENT_TYPES__;/g, elementTypes.join('\n'))
     .replace(/__EXPORTS__/g, exports.join(',\n'));
 

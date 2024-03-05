@@ -11,7 +11,7 @@ import { omitEventCallbacks, toNativeProps, useEventListeners } from './lib/util
 const CUSTOM_EVENTS = __CUSTOM_EVENTS__;
 const ELEMENT_NAME = '__ELEMENT_NAME__';
 
-if (customElements && !customElements.get(ELEMENT_NAME)) {
+if (typeof customElements !== 'undefined' && !customElements.get(ELEMENT_NAME)) {
   __DEFINE_CUSTOM_ELEMENT_FUNCTION__();
 }
 

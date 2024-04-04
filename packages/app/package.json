@@ -17,9 +17,9 @@
     "npm": "^10.0.0"
   },
   "scripts": {
-    "predev": "next telemetry disable",
+    "predev": "next telemetry disable &> /dev/null && recursive-copy --overwrite ../../node_modules/@webcomponents public/scripts/polyfills/@webcomponents &> /dev/null",
     "dev": "next dev",
-    "prebuild": "next telemetry disable &> /dev/null && recursive-copy --overwrite ../docs/storybook-static public/storybook &> /dev/null && recursive-copy --overwrite ../cdn-build/build public/cdn-build &> /dev/null",
+    "prebuild": "next telemetry disable &> /dev/null && recursive-copy --overwrite ../docs/storybook-static public/storybook &> /dev/null && recursive-copy --overwrite ../cdn-build/build public/cdn-build &> /dev/null && recursive-copy --overwrite ../../node_modules/@webcomponents public/scripts/polyfills/@webcomponents &> /dev/null",
     "build": "next build",
     "prestart": "next telemetry disable",
     "start": "next start",

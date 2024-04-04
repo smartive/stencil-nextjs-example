@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "public/scripts/polyfills/template-shadowroot.js"
+    "public/scripts/polyfills/template-shadowroot.loader.js",
   ],
   "exclude": ["node_modules"]
 }

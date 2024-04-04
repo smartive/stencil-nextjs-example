@@ -16,6 +16,7 @@
 /build
 /public/storybook
 /public/cdn-build
+/public/scripts/polyfills/@webcomponents
 
 # misc
 .DS_Store

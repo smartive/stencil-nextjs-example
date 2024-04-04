@@ -138,7 +138,11 @@ export const toNativeAttributeName = (name: string, value: unknown): string | un
 };
 
 export const toNativeAttributeValue = (value: unknown) =>
-  typeof value === 'boolean' ? '' : Array.isArray(value) ? value.join(' ') : value;
+  typeof value === 'boolean'
+    ? `${value}`
+    : Array.isArray(value) || typeof value === 'object'
+      ? JSON.stringify(value)
+      : value;
 
 export const toNativeProps = (props = {}) =>
   Object.entries(props).reduce((transformedProps, [name, value]) => {

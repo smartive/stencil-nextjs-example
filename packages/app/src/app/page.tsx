@@ -7,6 +7,9 @@ import { ButtonWithWrapper } from '@/components/button/button-with-wrapper';
 import { DropdownClientOnly } from '@/components/dropdown/dropdown-client-only';
 import { DropdownRSC } from '@/components/dropdown/dropdown-rsc';
 import { DropdownWithWrapper } from '@/components/dropdown/dropdown-with-wrapper';
+import { ListClientOnly } from '@/components/list/list-client-only';
+import { ListRSC } from '@/components/list/list-rsc';
+import { ListWithWrapper } from '@/components/list/list-with-wrapper';
 import { FC } from 'react';
 import { Navigation } from './navigation';
 import { Section } from './section';
@@ -36,6 +39,44 @@ const Page: FC = () => (
         { title: 'RSC', children: <DropdownRSC text="Dropdown" hint="Hint" label="Label" /> },
         { title: 'Wrapper', children: <DropdownWithWrapper text="Dropdown" hint="Hint" label="Label" /> },
         { title: 'Client Only', children: <DropdownClientOnly text="Dropdown" hint="Hint" label="Label" /> },
+      ]}
+    />
+    <Section
+      title="List"
+      variants={[
+        {
+          title: 'RSC',
+          children: (
+            <ListRSC
+              items={[
+                { title: 'List Item', description: 'List Item Description' },
+                { title: 'List Item', description: 'List Item Description' },
+              ]}
+            />
+          ),
+        },
+        {
+          title: 'Wrapper',
+          children: (
+            <ListWithWrapper
+              items={[
+                { title: 'List Item', description: 'List Item Description' },
+                { title: 'List Item', description: 'List Item Description' },
+              ]}
+            />
+          ),
+        },
+        {
+          title: 'Client Only',
+          children: (
+            <ListClientOnly
+              items={[
+                { title: 'List Item', description: 'List Item Description' },
+                { title: 'List Item', description: 'List Item Description' },
+              ]}
+            />
+          ),
+        },
       ]}
     />
   </main>

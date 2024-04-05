@@ -61,6 +61,9 @@ export namespace Components {
     interface AbcIconChevronDown {
         "size": ICON_SIZES;
     }
+    interface AbcList {
+        "items": ListItem[];
+    }
     interface AbcTodoInput {
     }
     interface AbcTodoItem {
@@ -218,6 +221,12 @@ declare global {
         prototype: HTMLAbcIconChevronDownElement;
         new (): HTMLAbcIconChevronDownElement;
     };
+    interface HTMLAbcListElement extends Components.AbcList, HTMLStencilElement {
+    }
+    var HTMLAbcListElement: {
+        prototype: HTMLAbcListElement;
+        new (): HTMLAbcListElement;
+    };
     interface HTMLAbcTodoInputElementEventMap {
         "todoInputSubmit": string;
     }
@@ -262,6 +271,7 @@ declare global {
         "abc-flyout": HTMLAbcFlyoutElement;
         "abc-flyout-item": HTMLAbcFlyoutItemElement;
         "abc-icon-chevron-down": HTMLAbcIconChevronDownElement;
+        "abc-list": HTMLAbcListElement;
         "abc-todo-input": HTMLAbcTodoInputElement;
         "abc-todo-item": HTMLAbcTodoItemElement;
     }
@@ -323,6 +333,9 @@ declare namespace LocalJSX {
     interface AbcIconChevronDown {
         "size"?: ICON_SIZES;
     }
+    interface AbcList {
+        "items"?: ListItem[];
+    }
     interface AbcTodoInput {
         "onTodoInputSubmit"?: (event: AbcTodoInputCustomEvent<string>) => void;
     }
@@ -342,6 +355,7 @@ declare namespace LocalJSX {
         "abc-flyout": AbcFlyout;
         "abc-flyout-item": AbcFlyoutItem;
         "abc-icon-chevron-down": AbcIconChevronDown;
+        "abc-list": AbcList;
         "abc-todo-input": AbcTodoInput;
         "abc-todo-item": AbcTodoItem;
     }
@@ -358,6 +372,7 @@ declare module "@stencil/core" {
             "abc-flyout": LocalJSX.AbcFlyout & JSXBase.HTMLAttributes<HTMLAbcFlyoutElement>;
             "abc-flyout-item": LocalJSX.AbcFlyoutItem & JSXBase.HTMLAttributes<HTMLAbcFlyoutItemElement>;
             "abc-icon-chevron-down": LocalJSX.AbcIconChevronDown & JSXBase.HTMLAttributes<HTMLAbcIconChevronDownElement>;
+            "abc-list": LocalJSX.AbcList & JSXBase.HTMLAttributes<HTMLAbcListElement>;
             "abc-todo-input": LocalJSX.AbcTodoInput & JSXBase.HTMLAttributes<HTMLAbcTodoInputElement>;
             "abc-todo-item": LocalJSX.AbcTodoItem & JSXBase.HTMLAttributes<HTMLAbcTodoItemElement>;
         }

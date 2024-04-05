@@ -5,7 +5,9 @@ import React, { useImperativeHandle, useRef } from 'react';
 // @ts-expect-error - leads only to error in template file
 import { __DEFINE_CUSTOM_ELEMENT_FUNCTION__ } from '__IMPORT_PATH__';
 // @ts-expect-error - leads only to error in template file
-import { omitEventCallbacks, toNativeProps, useEventListeners } from './lib/utils.js';
+import { omitEventCallbacks, useEventListeners } from './lib/utils.js';
+// @ts-expect-error - leads only to error in template file
+import { toNativeProps } from './lib/native-props';
 
 // @ts-expect-error - leads only to error in template file
 const CUSTOM_EVENTS = __CUSTOM_EVENTS__;

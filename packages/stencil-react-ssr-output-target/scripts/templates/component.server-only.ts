@@ -2,6 +2,8 @@
 import React from 'react';
 // @ts-expect-error - leads only to error in template file
 import { renderToString } from './hydrate';
+// @ts-expect-error - leads only to error in template file
+import { toNativeProps } from './lib/native-props';
 
 const stylePattern = /<style[^>]*>([\s\S]*?)<\/style>/gi;
 const bodyPattern = /<body[^>]*>([\s\S]*?)<\/body>/i;
@@ -9,9 +11,12 @@ const openTagPattern = /<__ELEMENT_TAG_PREFIX__-([^>\s]+)([^>]*)>/g;
 const closeTagPattern = /<\/__ELEMENT_TAG_PREFIX__-([^>\s]+)>/g;
 
 const toHtml = async ({ children, ...props }) => {
-  const stringifiedProps = Object.entries(props).reduce((result, [key, value]) => `${result} ${key}="${value}"`, '');
+  const nativeProps = Object.entries(toNativeProps(props)).reduce(
+    (result, [key, value]) => `${result} ${key}="${value}"`,
+    '',
+  );
   const { html } = await renderToString(
-    `<__ELEMENT_NAME__${stringifiedProps}>${typeof children === 'string' ? children : ''}</__ELEMENT_NAME__>`,
+    `<__ELEMENT_NAME__${nativeProps}>${typeof children === 'string' ? children : ''}</__ELEMENT_NAME__>`,
     { removeScript: true, afterHydrate: true },
   );
 

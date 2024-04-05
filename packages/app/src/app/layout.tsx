@@ -31,7 +31,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
       >
         <noscript>Please enable JavaScript to view this website. Especially if you use Firefox.</noscript>
         {children}
-        <Script src="/scripts/polyfills/template-shadowroot.js" strategy="beforeInteractive" />
+        <Script src="/scripts/polyfills/template-shadowroot.loader.js" strategy="beforeInteractive" />
       </body>
     </html>
   );

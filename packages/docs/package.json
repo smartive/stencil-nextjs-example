@@ -42,7 +42,7 @@
     "@storybook/react": "^7.5.2",
     "@storybook/react-webpack5": "^7.5.2",
     "@storybook/testing-library": "^0.2.2",
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.5",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",
     "eslint": "8.57.0",

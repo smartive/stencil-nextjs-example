@@ -16,7 +16,7 @@ const toNativeAttributeName = (name: string, value: unknown): string | undefined
   }
 
   if (/[A-Z]/.test(name)) {
-    return name.toLowerCase();
+    return name.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (substring, offset) => `${offset ? '-' : ''}${substring.toLowerCase()}`);
   }
 
   return name;

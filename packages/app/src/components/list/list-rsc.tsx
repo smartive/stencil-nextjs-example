@@ -4,4 +4,6 @@ import { ListWithRSC } from './list-with-rsc';
 
 type Props = ComponentProps<typeof AbcListServerOnly>;
 
-export const ListRSC: FC<Props> = ({ items }) => <ListWithRSC rsc={<AbcListServerOnly items={items} />} items={items} />;
+export const ListRSC: FC<Props> = ({ items }) => (
+  <ListWithRSC rsc={<AbcListServerOnly highlightedItem="second" items={items} />} items={items} />
+);

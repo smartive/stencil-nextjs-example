@@ -19,7 +19,6 @@ export namespace Components {
         "variant": ACCORDION_VARIANTS;
     }
     interface AbcAccordionGroup {
-        "selectedAccordion": HTMLAbcAccordionElement['item'];
     }
     interface AbcButton {
         "ariaLabel": string;
@@ -62,6 +61,7 @@ export namespace Components {
         "size": ICON_SIZES;
     }
     interface AbcList {
+        "highlightedItem": string;
         "items": ListItem[];
     }
     interface AbcTodoInput {
@@ -286,7 +286,6 @@ declare namespace LocalJSX {
     }
     interface AbcAccordionGroup {
         "onAccordionChange"?: (event: AbcAccordionGroupCustomEvent<HTMLAbcAccordionElement['item']>) => void;
-        "selectedAccordion"?: HTMLAbcAccordionElement['item'];
     }
     interface AbcButton {
         "ariaLabel"?: string;
@@ -334,6 +333,7 @@ declare namespace LocalJSX {
         "size"?: ICON_SIZES;
     }
     interface AbcList {
+        "highlightedItem"?: string;
         "items"?: ListItem[];
     }
     interface AbcTodoInput {

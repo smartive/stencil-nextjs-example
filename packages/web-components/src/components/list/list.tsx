@@ -1,6 +1,7 @@
 import { Component, Element, Prop, State, h } from '@stencil/core';
 
 type ListItem = {
+  id: string;
   title: string;
   description: string;
 };
@@ -12,6 +13,9 @@ type ListItem = {
 export class List {
   @Prop()
   items: ListItem[] = [];
+
+  @Prop()
+  highlightedItem: string;
 
   @Element()
   host: HTMLAbcListElement;
@@ -36,9 +40,9 @@ export class List {
     return (
       <ul>
         {this.parsedItems.map(
-          ({ title, description }) =>
+          ({ id, title, description }) =>
             (
-              <li>
+              <li style={id === this.highlightedItem ? { background: 'yellow' } : undefined}>
                 <b>{title}</b>
                 <p>{description}</p>
               </li>

@@ -1,4 +1,4 @@
 export const listItems = [
-  { title: 'List Item', description: 'List Item Description' },
-  { title: 'List Item', description: 'List Item Description' },
+  { id: 'first', title: 'List Item', description: 'List Item Description' },
+  { id: 'second', title: 'List Item', description: 'List Item Description' },
 ];

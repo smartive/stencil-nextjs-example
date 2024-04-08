@@ -5,4 +5,4 @@ import { ComponentProps, FC } from 'react';
 
 type Props = ComponentProps<typeof AbcList>;
 
-export const ListClientOnly: FC<Props> = ({ items }) => <AbcList items={items} />;
+export const ListClientOnly: FC<Props> = ({ items }) => <AbcList highlightedItem="second" items={items} />;

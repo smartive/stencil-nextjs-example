@@ -1,7 +1,9 @@
-import { AbcButtonServerOnly } from 'abc-web-components-react-wrapper';
+import { AbcButtonServerOnly, WithSSR } from 'abc-web-components-react-wrapper';
 import { FC, PropsWithChildren } from 'react';
-import { ButtonWithRSC } from './button-with-rsc';
+import { ButtonClientOnly } from './button-client-only';
 
 export const ButtonRSC: FC<PropsWithChildren> = ({ children }) => (
-  <ButtonWithRSC rsc={<AbcButtonServerOnly>{children}</AbcButtonServerOnly>}>{children}</ButtonWithRSC>
+  <WithSSR fallback={<AbcButtonServerOnly>{children}</AbcButtonServerOnly>}>
+    <ButtonClientOnly>{children}</ButtonClientOnly>
+  </WithSSR>
 );

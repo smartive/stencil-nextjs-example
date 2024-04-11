@@ -1,9 +1,11 @@
-import { AbcListServerOnly } from 'abc-web-components-react-wrapper';
+import { AbcListServerOnly, WithSSR } from 'abc-web-components-react-wrapper';
 import { ComponentProps, FC } from 'react';
-import { ListWithRSC } from './list-with-rsc';
+import { ListClientOnly } from './list-client-only';
 
 type Props = ComponentProps<typeof AbcListServerOnly>;
 
 export const ListRSC: FC<Props> = ({ items }) => (
-  <ListWithRSC rsc={<AbcListServerOnly highlightedItem="second" items={items} />} items={items} />
+  <WithSSR fallback={<AbcListServerOnly highlightedItem="second" items={items} />}>
+    <ListClientOnly items={items} />
+  </WithSSR>
 );

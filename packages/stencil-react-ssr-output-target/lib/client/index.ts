@@ -1,13 +1,10 @@
 // Original code from https://github.com/luwes/wesc
 
-import React, { FC, Fragment, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import React, { FC, PropsWithChildren, ReactNode } from 'react';
+import { WithSSR } from './with-ssr';
 
-export const WithRSCFallback: FC<PropsWithChildren<{ rsc: ReactNode }>> = ({ rsc, children }) => {
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true), []);
-
-  return React.createElement(Fragment, null, isClient ? children : rsc);
-};
+export const WithRSCFallback: FC<PropsWithChildren<{ rsc: ReactNode }>> = ({ rsc, children }) =>
+  React.createElement(WithSSR, { fallback: rsc }, children);
 
 // Must go in a client component
 // > Otherwise will error:

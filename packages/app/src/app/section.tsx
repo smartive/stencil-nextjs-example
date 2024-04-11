@@ -6,7 +6,7 @@ export const Section: FC<{ title: string; variants: { title: string; children: R
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(12rem, 1fr))',
         gap: '2rem',
       }}
     >

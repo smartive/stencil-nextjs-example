@@ -1,6 +1,6 @@
-import { AbcAccordionGroupServerOnly, staticAbcAccordionHtmlServerOnly } from 'abc-web-components-react-wrapper';
+import { AbcAccordionGroupServerOnly, WithSSR, staticAbcAccordionHtmlServerOnly } from 'abc-web-components-react-wrapper';
 import { FC } from 'react';
-import { AccordionWithRSC } from './accordion-with-rsc';
+import { AccordionClientOnly } from './accordion-client-only';
 import { data } from './data';
 
 export const AccordionRSC: FC = async () => {
@@ -10,5 +10,9 @@ export const AccordionRSC: FC = async () => {
     ),
   );
 
-  return <AccordionWithRSC rsc={<AbcAccordionGroupServerOnly>{accordions.join('')}</AbcAccordionGroupServerOnly>} />;
+  return (
+    <WithSSR fallback={<AbcAccordionGroupServerOnly>{accordions.join('')}</AbcAccordionGroupServerOnly>}>
+      <AccordionClientOnly />
+    </WithSSR>
+  );
 };

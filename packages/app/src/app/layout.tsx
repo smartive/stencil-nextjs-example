@@ -21,7 +21,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
     <html lang="en" className={inter.className}>
       <body
         style={{
-          width: '50rem',
+          width: '60rem',
           maxWidth: '100%',
           marginLeft: 'auto',
           marginRight: 'auto',

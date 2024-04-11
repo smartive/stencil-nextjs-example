@@ -1,16 +1,17 @@
 import { AccordionClientOnly } from '@/components/accordion/accordion-client-only';
-import { AccordionRSC } from '@/components/accordion/accordion-rsc';
+import { AccordionSSR } from '@/components/accordion/accordion-ssr';
 import { AccordionWithWrapper } from '@/components/accordion/accordion-with-wrapper';
 import { ButtonClientOnly } from '@/components/button/button-client-only';
-import { ButtonRSC } from '@/components/button/button-rsc';
+import { ButtonSSR } from '@/components/button/button-ssr';
 import { ButtonWithWrapper } from '@/components/button/button-with-wrapper';
 import { DropdownClientOnly } from '@/components/dropdown/dropdown-client-only';
-import { DropdownRSC } from '@/components/dropdown/dropdown-rsc';
+import { DropdownSSR } from '@/components/dropdown/dropdown-ssr';
 import { DropdownWithWrapper } from '@/components/dropdown/dropdown-with-wrapper';
 import { listItems } from '@/components/list/data';
 import { ListClientOnly } from '@/components/list/list-client-only';
-import { ListRSC } from '@/components/list/list-rsc';
+import { ListSSR } from '@/components/list/list-ssr';
 import { ListWithWrapper } from '@/components/list/list-with-wrapper';
+import { AbcListServerOnly } from 'abc-web-components-react-wrapper';
 import { FC } from 'react';
 import { Navigation } from './navigation';
 import { Section } from './section';
@@ -21,7 +22,16 @@ const Page: FC = () => (
     <Section
       title="List"
       variants={[
-        { title: 'RSC', children: <ListRSC items={listItems} /> },
+        {
+          title: 'Static',
+          children: (
+            <>
+              <AbcListServerOnly highlightedItem="second" items={listItems} />
+              <i>If a component is not interactive, it is possible to render it server-side only.</i>
+            </>
+          ),
+        },
+        { title: 'SSR', children: <ListSSR items={listItems} /> },
         { title: 'Wrapper', children: <ListWithWrapper items={listItems} /> },
         { title: 'Client Only', children: <ListClientOnly items={listItems} /> },
       ]}
@@ -29,7 +39,7 @@ const Page: FC = () => (
     <Section
       title="Buttons"
       variants={[
-        { title: 'RSC', children: <ButtonRSC>Button</ButtonRSC> },
+        { title: 'SSR', children: <ButtonSSR>Button</ButtonSSR> },
         { title: 'Wrapper', children: <ButtonWithWrapper>Button</ButtonWithWrapper> },
         { title: 'Client Only', children: <ButtonClientOnly>Button</ButtonClientOnly> },
       ]}
@@ -37,7 +47,7 @@ const Page: FC = () => (
     <Section
       title="Accordion"
       variants={[
-        { title: 'RSC', children: <AccordionRSC /> },
+        { title: 'SSR', children: <AccordionSSR /> },
         { title: 'Wrapper', children: <AccordionWithWrapper /> },
         { title: 'Client Only', children: <AccordionClientOnly /> },
       ]}
@@ -45,7 +55,7 @@ const Page: FC = () => (
     <Section
       title="Dropdown"
       variants={[
-        { title: 'RSC', children: <DropdownRSC text="Dropdown" hint="Hint" label="Label" /> },
+        { title: 'SSR', children: <DropdownSSR text="Dropdown" hint="Hint" label="Label" /> },
         { title: 'Wrapper', children: <DropdownWithWrapper text="Dropdown" hint="Hint" label="Label" /> },
         { title: 'Client Only', children: <DropdownClientOnly text="Dropdown" hint="Hint" label="Label" /> },
       ]}

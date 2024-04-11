@@ -16,4 +16,7 @@ type EnumsToStringLiterals<T> = {
 __ELEMENT_TYPES__;
 
 // @ts-expect-error - leads only to error in template file
+export * from './lib/client/with-ssr';
+
+// @ts-expect-error - leads only to error in template file
 export { __EXPORTS__ };

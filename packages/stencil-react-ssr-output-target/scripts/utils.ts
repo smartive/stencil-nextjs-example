@@ -143,9 +143,8 @@ export const toTypesFile = (
 };
 
 export const toIndexFile = (modules: string[]) =>
-  `${modules
-    .flatMap((module) => [`export * from './${module}';`, `export * from './${module}.server-only';`])
-    .join('\n')}\n`;
+  `export * from './lib/client/with-ssr';\n
+${modules.flatMap((module) => [`export * from './${module}';`, `export * from './${module}.server-only';`]).join('\n')}\n`;
 
 export const printProgress = (progress: number) => {
   if (!stdout.clearLine) {

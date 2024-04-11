@@ -1,16 +1,15 @@
 'use client';
 
 import { AbcTodoItem } from 'abc-web-components-react-wrapper';
-import { WithRSCFallback } from 'abc-web-components-react-wrapper/client';
-import { ComponentProps, FC } from 'react';
+import { FC } from 'react';
 import { useTodo } from './use-todo';
 
-export const List: FC<ComponentProps<typeof WithRSCFallback>> = ({ rsc }) => {
-  const { list, setList } = useTodo();
+export const TodoItems: FC = () => {
+  const { todos, setTodos } = useTodo();
 
   return (
-    <WithRSCFallback rsc={rsc}>
-      {list.map(({ checked, text }, index) => {
+    <>
+      {todos.map(({ checked, text }, index) => {
         const props = { checked, text, index };
 
         return (
@@ -18,16 +17,16 @@ export const List: FC<ComponentProps<typeof WithRSCFallback>> = ({ rsc }) => {
             {...props}
             key={index}
             onTodoItemChecked={({ detail }) => {
-              const copyList = [...list];
+              const copyList = [...todos];
               copyList[detail].checked = !copyList[detail].checked;
-              setList(copyList);
+              setTodos(copyList);
             }}
             onTodoItemRemove={({ detail }) => {
-              setList([...list.slice(0, detail), ...list.slice(detail + 1)]);
+              setTodos([...todos.slice(0, detail), ...todos.slice(detail + 1)]);
             }}
           />
         );
       })}
-    </WithRSCFallback>
+    </>
   );
 };

@@ -39,7 +39,7 @@ export const config: Config = {
 
 > **This package is experimental and not yet tested with all use cases. Use generated code with caution.**
 
-You can use the generated components in three ways: 
+You can use the generated components in three ways:
 1. Fully SSR supported React components with client rehydration (`wrapper`)
 2. Prerendered SSR components with client rehydration (`ssr-only`)
 3. Client components only (`wrapper` with `use client`).
@@ -72,16 +72,16 @@ export const ButtonWithWrapper: FC<PropsWithChildren> = ({ children }) => (
 
 This approach is a little more complicated since it uses the React Server Component approach which allows to run async code server side but not client side. Furthermore it relies on the possability to pass client components into server components as children and vice versa.
 
-1. Create two components one is for RSC usage and the other is the one rendered on the client:
-   RSC:
+1. Create two components one is for SSR usage and the other is the one rendered on the client:
+   SSR:
 
 ```TSX
 import { AbcButtonServerOnly } from 'abc-web-components-react-wrapper';
 import { FC, PropsWithChildren } from 'react';
-import { ButtonWithRSC } from './button-with-rsc';
+import { ButtonWithSSR } from './button-with-ssr';
 
-export const ButtonRSC: FC<PropsWithChildren> = ({ children }) => (
-  <ButtonWithRSC rsc={<AbcButtonServerOnly>{children}</AbcButtonServerOnly>}>{children}</ButtonWithRSC>
+export const ButtonSSR: FC<PropsWithChildren> = ({ children }) => (
+  <ButtonWithSSR fallback={<AbcButtonServerOnly>{children}</AbcButtonServerOnly>}>{children}</ButtonWithSSR>
 );
 ```
 
@@ -90,23 +90,22 @@ Client:
 ```TSX
 'use client';
 
-import { AbcButton } from 'abc-web-components-react-wrapper';
-import { WithRSCFallback } from 'abc-web-components-react-wrapper/client';
+import { AbcButton, WithSSR } from 'abc-web-components-react-wrapper';
 import { ComponentProps, FC, PropsWithChildren } from 'react';
 
-type Props = PropsWithChildren<ComponentProps<typeof WithRSCFallback>>;
+type Props = PropsWithChildren<ComponentProps<typeof WithSSR>>;
 
-export const ButtonWithRSC: FC<Props> = ({ rsc, children }) => (
-  <WithRSCFallback rsc={rsc}>
+export const ButtonWithSSR: FC<Props> = ({ fallback, children }) => (
+  <WithSSR fallback={fallback}>
     <AbcButton variant="primary" size="md" as="button" onClick={(event) => console.info(event)}>
       {children}
     </AbcButton>
-  </WithRSCFallback>
+  </WithSSR>
 );
 
 ```
 
-1. Use the `ButtonRSC` component in `page.tsx`
+1. Use the `ButtonSSR` component in `page.tsx`
 
 ### 3. `'use client'` approach
 

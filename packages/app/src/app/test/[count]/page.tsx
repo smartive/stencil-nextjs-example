@@ -1,7 +1,7 @@
 import { Navigation } from '@/app/navigation';
-import { AccordionRSC } from '@/components/accordion/accordion-rsc';
-import { ButtonRSC } from '@/components/button/button-rsc';
-import { DropdownRSC } from '@/components/dropdown/dropdown-rsc';
+import { AccordionSSR } from '@/components/accordion/accordion-ssr';
+import { ButtonSSR } from '@/components/button/button-ssr';
+import { DropdownSSR } from '@/components/dropdown/dropdown-ssr';
 import { notFound, redirect } from 'next/navigation';
 import { FC } from 'react';
 import { Section } from '../../section';
@@ -31,9 +31,9 @@ const Page: FC<{ params: { count: string } }> = ({ params: { count: rawCount } }
           key={index}
           title={`Section ${index + 1}`}
           variants={[
-            { title: 'Button', children: <ButtonRSC>Button</ButtonRSC> },
-            { title: 'Accordion', children: <AccordionRSC /> },
-            { title: 'Dropdown', children: <DropdownRSC text="Dropdown" hint="Hint" label="Label" /> },
+            { title: 'Button', children: <ButtonSSR>Button</ButtonSSR> },
+            { title: 'Accordion', children: <AccordionSSR /> },
+            { title: 'Dropdown', children: <DropdownSSR text="Dropdown" hint="Hint" label="Label" /> },
           ]}
         />
       ))}

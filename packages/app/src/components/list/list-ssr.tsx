@@ -4,7 +4,7 @@ import { ListClientOnly } from './list-client-only';
 
 type Props = ComponentProps<typeof AbcListServerOnly>;
 
-export const ListRSC: FC<Props> = ({ items }) => (
+export const ListSSR: FC<Props> = ({ items }) => (
   <WithSSR fallback={<AbcListServerOnly highlightedItem="second" items={items} />}>
     <ListClientOnly items={items} />
   </WithSSR>

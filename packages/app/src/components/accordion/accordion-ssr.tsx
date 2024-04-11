@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { AccordionClientOnly } from './accordion-client-only';
 import { data } from './data';
 
-export const AccordionRSC: FC = async () => {
+export const AccordionSSR: FC = async () => {
   const accordions = await Promise.all(
     data.map(({ item, summary }) =>
       staticAbcAccordionHtmlServerOnly({ slot: 'accordions', item, summary, variant: 'white' }),

@@ -4,7 +4,7 @@ import { DropdownClientOnly } from './dropdown-client-only';
 
 type Props = ComponentProps<typeof AbcDropdownServerOnly>;
 
-export const DropdownRSC: FC<Props> = ({ text, hint, label }) => (
+export const DropdownSSR: FC<Props> = ({ text, hint, label }) => (
   <WithSSR fallback={<AbcDropdownServerOnly text={text} hint={hint} label={label} />}>
     <DropdownClientOnly text={text} hint={hint} label={label} />
   </WithSSR>

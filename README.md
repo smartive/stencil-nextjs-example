@@ -3,7 +3,7 @@
 This project demonstrates approaches for integrating Stencil Web Components into a Next.js app directory with the help of our custom Stencil [output target plugin](https://github.com/smartive/stencil-nextjs-example/tree/main/packages/stencil-react-ssr-output-target).
 
 
-**Live Demo**: [stencil-nextjs-example-app.vercel.app](stencil-nextjs-example-app.vercel.app)
+**Live Demo**: [stencil-nextjs-example-app.vercel.app](https://stencil-nextjs-example-app.vercel.app)
 
 **Local Setup**:
 - Install dependencies: `npm ci`

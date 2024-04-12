@@ -132,7 +132,7 @@ export const ButtonWithWrapper: FC<PropsWithChildren> = ({ children }) => (
 
 ### Working Next.js Example
 
-**Live Demo**: [stencil-nextjs-example-app.vercel.app](stencil-nextjs-example-app.vercel.app)
+**Live Demo**: [stencil-nextjs-example-app.vercel.app](https://stencil-nextjs-example-app.vercel.app)
 
 **Code**: [smartive/stencil-nextjs-example](https://github.com/smartive/stencil-nextjs-example/tree/main/packages/app)
 

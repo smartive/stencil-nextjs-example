@@ -153,9 +153,9 @@ const createPackageJson = (
 
     if (patchStencil) {
       templatePackageJson.dependencies.linkedom = '0.16.1';
-      templatePackageJson.dependencies['@stencil/core'] = 'github:smartive/stencil-patched#v4.12.1';
+      templatePackageJson.dependencies['@stencil/core'] = 'github:smartive/stencil-patched#v4.19.2';
     } else {
-      templatePackageJson.dependencies['@stencil/core'] = '^4.12.1';
+      templatePackageJson.dependencies['@stencil/core'] = '^4.19.2';
     }
 
     writeFileSync(outputPackageJsonPath, JSON.stringify(templatePackageJson, null, 2));

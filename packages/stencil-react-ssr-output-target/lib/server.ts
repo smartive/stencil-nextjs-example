@@ -30,8 +30,15 @@ import { parseHTML } from 'linkedom';
     static set observedAttributes(value) {
       HTMLElement._observedAttributes = value;
     }
-    
-    attachInternals() { return {}; }
+
+    attachInternals() {
+      return {
+        checkValidity: () => true,
+        reportValidity: () => true,
+        setFormValue: () => {},
+        setValidity: () => {},
+      } as unknown as ElementInternals;
+    }
   }
 
   class Storage {

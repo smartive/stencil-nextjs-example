@@ -30,6 +30,8 @@ import { parseHTML } from 'linkedom';
     static set observedAttributes(value) {
       HTMLElement._observedAttributes = value;
     }
+    
+    attachInternals() { return {}; }
   }
 
   class Storage {

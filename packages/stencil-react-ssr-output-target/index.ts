@@ -30,7 +30,7 @@ export const reactSSROutputTarget = (
     _,
     buildContext: {
       config: {
-        flags: { debug: boolean };
+        flags: { debug?: boolean | null };
         logger: {
           debug: (message: string) => void;
           info: (message: string) => void;
@@ -87,7 +87,7 @@ export const reactSSROutputTarget = (
         '--components-prefix',
         fsNamespace.split('-').shift() ?? '',
       ],
-      debug,
+      !!debug,
     );
 
     exec(
@@ -102,7 +102,7 @@ export const reactSSROutputTarget = (
         '--declarationDir',
         typesDir,
       ],
-      debug,
+      !!debug,
     );
 
     await esbuild.build({

@@ -4,3 +4,4 @@ node_modules/
 .npmrc
 index.js*
 index.d.ts
+lib/client/index.ts

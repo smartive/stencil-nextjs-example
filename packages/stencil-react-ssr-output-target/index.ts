@@ -3,7 +3,7 @@ import type { OutputTargetCustom } from '@stencil/core/internal';
 import * as esbuild from 'esbuild';
 import assert from 'node:assert';
 import { spawnSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
@@ -62,6 +62,7 @@ export const reactSSROutputTarget = (
     const distDir = path.join(outputDir, 'dist');
     const esmDir = path.join(distDir, 'esm');
     const typesDir = path.join(distDir, 'types');
+    const componentsPrefix = fsNamespace.split('-').shift() ?? '';
 
     rmSync(distDir, { recursive: true, force: true });
     mkdirSync(path.join(esmDir, 'components'), { recursive: true });
@@ -78,15 +79,21 @@ export const reactSSROutputTarget = (
     cpSync(path.join(rootDir, 'dist', 'types'), typesDir, { recursive: true });
     rmSync(path.join(esmDir, 'hydrate', 'package.json'), { force: true });
 
+    writeFileSync(
+      path.join(__dirname, 'lib', 'client', 'index.ts'),
+      readFileSync(path.join(__dirname, 'scripts', 'templates', 'lib.client.index.ts'), 'utf-8')
+        .toString()
+        .replace(
+          /__PASCAL_CASE_COMPONENTS_PREFIX__/g,
+          componentsPrefix.replace(/(^\w|-\w)/g, (text: string) => text.replace(/-/, '').toUpperCase()),
+        )
+        .replace(/\/\/ @ts-expect-error - leads only to error in template file\n/g, '')
+        .replace(/\/\* eslint-disable \*\/\n/g, ''),
+    );
+
     exec(
       'tsx',
-      [
-        path.join(__dirname, 'scripts', 'build.ts'),
-        '--dist-root',
-        esmDir,
-        '--components-prefix',
-        fsNamespace.split('-').shift() ?? '',
-      ],
+      [path.join(__dirname, 'scripts', 'build.ts'), '--dist-root', esmDir, '--components-prefix', componentsPrefix],
       !!debug,
     );
 

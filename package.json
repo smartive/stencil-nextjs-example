@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "del-cli": "^5.1.0",
-    "lerna": "8.1.6"
+    "lerna": "8.1.7"
   },
   "workspaces": [
     "packages/*"

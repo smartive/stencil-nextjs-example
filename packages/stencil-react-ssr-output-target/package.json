@@ -32,7 +32,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@babel/parser": "7.25.0",
+    "@babel/parser": "7.25.3",
     "@stencil/core": "4.19.2",
     "commander": "12.1.0",
     "esbuild": "0.23.0",

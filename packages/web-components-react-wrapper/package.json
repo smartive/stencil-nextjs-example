@@ -30,7 +30,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "linkedom": "0.18.4",
-    "@stencil/core": "npm:@smartive/stencil-core@^4.20.0"
+    "@stencil/core": "npm:@smartive/stencil-core@4.18.3"
   },
   "private": true,
   "devDependencies": {

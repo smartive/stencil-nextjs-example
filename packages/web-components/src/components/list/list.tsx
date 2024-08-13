@@ -28,6 +28,7 @@ export class List {
   }
 
   private filterString(value: unknown[]) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return value.filter((item) => typeof item === 'string').pop() as string | undefined;
   }
 

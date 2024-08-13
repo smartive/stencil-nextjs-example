@@ -28,7 +28,7 @@ export class List {
   }
 
   private filterString(value: unknown[]) {
-    return value.filter((item) => typeof item === 'string').pop() as string | undefined;
+    return value.filter((item) => typeof item === 'string').pop();
   }
 
   connectedCallback() {

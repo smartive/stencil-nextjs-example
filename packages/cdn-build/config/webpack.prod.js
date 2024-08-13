@@ -21,7 +21,6 @@ module.exports = {
     modules: ["node_modules"],
     extensions: [".ts", ".tsx", ".js", ".json"],
     symlinks: true,
-    fallback: { stream: false },
   },
   module: {
     rules: [

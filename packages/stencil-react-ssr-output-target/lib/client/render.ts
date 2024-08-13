@@ -2,9 +2,6 @@
 /* eslint-disable */
 
 import React from 'react';
-import { renderToString as reactRenderToString } from 'react-dom/server';
-// @ts-expect-error - leads only to error in template file
-import { renderToString as stencilRenderToString } from '../../hydrate';
 
 declare global {
   interface HTMLElement {
@@ -13,17 +10,12 @@ declare global {
 }
 
 export async function render(children) {
-  // return renderNew(children);
   const container = document.createElement('div');
   renderChildren(children, container);
   document.body.appendChild(container);
   container.remove();
 
   return children;
-}
-
-function renderNew(children) {
-  return stencilRenderToString(reactRenderToString(children), { removeScript: true, afterHydrate: true });
 }
 
 function renderChildren(children, parent: HTMLElement) {

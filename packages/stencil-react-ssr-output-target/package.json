@@ -35,7 +35,7 @@
     "@babel/parser": "7.25.6",
     "@stencil/core": "4.18.3",
     "commander": "12.1.0",
-    "esbuild": "0.23.1",
+    "esbuild": "0.24.0",
     "tsx": "4.19.1",
     "typescript": "5.6.2"
   },

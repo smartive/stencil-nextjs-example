@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@babel/parser": "7.26.1",
-    "@stencil/core": "4.18.3",
+    "@stencil/core": "4.22.2",
     "commander": "12.1.0",
     "esbuild": "0.24.0",
     "tsx": "4.19.2",
